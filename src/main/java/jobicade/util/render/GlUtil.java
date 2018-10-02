@@ -31,15 +31,14 @@ public final class GlUtil {
 		GlStateManager.enableBlendProfile(Profile.PLAYER_SKIN);
 	}
 
-	/** Sets the OpenGL color to the 32-bit RGBA composite color */
-	public static void color(int color) {
-		GlStateManager.color(Colors.red(color), Colors.green(color), Colors.blue(color), Colors.alpha(color));
-	}
-
 	/** All axes default to {@code scale}
 	 * @see GlStateManager#scale(float, float, float) */
 	public static void scale(float scale) {
 		GlStateManager.scale(scale, scale, scale);
+	}
+
+	public static void drawRect(Bounds bounds, Color color) {
+		drawRect(bounds, color.getPacked());
 	}
 
 	/** @see Gui#drawRect(int, int, int, int, int) */
@@ -89,10 +88,11 @@ public final class GlUtil {
 	/** Draws text with black borders on all sides */
 	public static void drawBorderedString(String text, int x, int y, int color) {
 		// Borders
-		MC.fontRenderer.drawString(text, x + 1, y, Colors.BLACK, false);
-		MC.fontRenderer.drawString(text, x - 1, y, Colors.BLACK, false);
-		MC.fontRenderer.drawString(text, x, y + 1, Colors.BLACK, false);
-		MC.fontRenderer.drawString(text, x, y - 1, Colors.BLACK, false);
+		int border = Color.BLACK.getPacked();
+		MC.fontRenderer.drawString(text, x + 1, y, border, false);
+		MC.fontRenderer.drawString(text, x - 1, y, border, false);
+		MC.fontRenderer.drawString(text, x, y + 1, border, false);
+		MC.fontRenderer.drawString(text, x, y - 1, border, false);
 
 		MC.fontRenderer.drawString(text, x, y, color, false);
 	}
@@ -199,10 +199,10 @@ public final class GlUtil {
 	 * @param progress Index of progress between 0 and 1
 	 * @param vertical {@code true} to render bar from bottom to top */
 	public static void drawProgressBar(Bounds bounds, float progress, boolean vertical) {
-		drawRect(bounds, Colors.BLACK);
+		drawRect(bounds, Color.BLACK);
 		progress = MathHelper.clamp(progress, 0, 1);
 
-		int color = Colors.fromHSV(progress / 3, 1, 1);
+		Color color = Color.fromHSV(progress / 3, 1, 1);
 
 		Bounds bar;
 		if(vertical) {

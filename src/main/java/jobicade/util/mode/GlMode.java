@@ -8,8 +8,7 @@ import java.util.Deque;
 
 import com.google.common.util.concurrent.Runnables;
 
-import jobicade.util.render.Colors;
-import jobicade.util.render.GlUtil;
+import jobicade.util.render.Color;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
@@ -38,7 +37,7 @@ public class GlMode {
 	public static final GlMode DEFAULT = new GlMode() {
 		@Override
 		public void begin() {
-			GlUtil.color(Colors.WHITE);
+			Color.WHITE.apply();
 			GlStateManager.disableLighting();
 			GlStateManager.enableAlpha();
 			GlStateManager.enableBlend();

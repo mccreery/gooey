@@ -5,7 +5,7 @@ import static jobicade.util.Constants.*;
 import java.util.Arrays;
 import java.util.Collection;
 
-import jobicade.util.render.Colors;
+import jobicade.util.render.Color;
 import jobicade.util.render.GlUtil;
 import jobicade.util.geom.Bounds;
 import jobicade.util.geom.Direction;
@@ -27,7 +27,7 @@ public class StringGroup {
 	public StringGroup(Collection<String> source) {
 		this.source = source;
 
-		color = Colors.WHITE;
+		color = Color.WHITE.getPacked();
 		alignment = Direction.NORTH_WEST;
 		spacing = 0;
 		gutter = 2;
@@ -50,6 +50,10 @@ public class StringGroup {
 
 	public StringGroup setAlignment(Direction alignment) {
 		this.alignment = alignment;
+		return this;
+	}
+	public StringGroup setColor(Color color) {
+		this.color = color.getPacked();
 		return this;
 	}
 	public StringGroup setColor(int color) {
