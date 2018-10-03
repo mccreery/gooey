@@ -1,5 +1,9 @@
 package jobicade.util.geom;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
 import net.minecraft.client.resources.I18n;
@@ -116,13 +120,26 @@ public enum Direction {
 			}
 		};
 
+		private final List<Direction> directions;
 		private final int flags;
 
 		Options(Direction... directions) {
-			this(getFlags(directions));
+			this.directions = Collections.unmodifiableList(Arrays.asList(directions));
+			flags = getFlags(directions);
 		}
+
 		Options(int flags) {
+			List<Direction> directions = new ArrayList<>(Direction.values().length);
+			for(Direction direction : Direction.values()) {
+				if(direction.in(flags)) directions.add(direction);
+			}
+
+			this.directions = Collections.unmodifiableList(directions);
 			this.flags = flags;
+		}
+
+		public List<Direction> getDirections() {
+			return directions;
 		}
 
 		public boolean isValid(Direction direction) {
