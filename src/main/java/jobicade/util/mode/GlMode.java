@@ -38,7 +38,8 @@ public class GlMode {
 		@Override
 		public void begin() {
 			Color.WHITE.apply();
-			GlStateManager.disableLighting();
+			RenderHelper.disableStandardItemLighting();
+			GlStateManager.disableRescaleNormal();
 			GlStateManager.enableAlpha();
 			GlStateManager.enableBlend();
 			GlStateManager.disableDepth();
