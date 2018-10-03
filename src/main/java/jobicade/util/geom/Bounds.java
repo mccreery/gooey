@@ -201,7 +201,7 @@ public final class Bounds implements Serializable {
 	/** {@code outside} defaults to {@code false}
 	 * @see #anchor(Bounds, Direction, boolean) */
 	public Bounds anchor(Bounds container, Direction alignment) {
-		return anchor(container, alignment, false);
+		return anchor(container, alignment, false, false);
 	}
 
 	/** Anchors this bounds to the anchor for the given direction on the container.
@@ -210,7 +210,17 @@ public final class Bounds implements Serializable {
 	 * @param alignment The anchor direction
 	 *
 	 * @return A new bounds with the anchor applied */
-	public Bounds anchor(Bounds container, Direction alignment, boolean outside) {
-		return align(container.getAnchor(alignment), (outside ? alignment.mirror() : alignment));
+	public Bounds anchor(Bounds container, Direction alignment, boolean outside, boolean saturate) {
+		Bounds bounds = this;
+
+		if(saturate) {
+			if(alignment.getRow() == 1) {
+				bounds = bounds.withHeight(container.getHeight());
+			}
+			if(alignment.getColumn() == 1) {
+				bounds = bounds.withWidth(container.getWidth());
+			}
+		}
+		return bounds.align(container.getAnchor(alignment), (outside ? alignment.mirror() : alignment));
 	}
 }
