@@ -2,87 +2,22 @@ package jobicade.util.render;
 
 import static jobicade.util.Constants.MC;
 
-import java.util.List;
-
 import jobicade.util.geom.Bounds;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
-import jobicade.util.geom.Direction.Options;
 import jobicade.util.mode.GlMode;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager.Profile;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.client.config.GuiUtils;
 
 public final class GlUtil {
 	private GlUtil() {}
-
-	private static final double TEXTURE_NORMALIZE = 1.0 / 256.0;
-
-	/** Enables general blending for translucent primitives */
-	public static void enableBlendTranslucent() {
-		GlStateManager.enableBlendProfile(Profile.PLAYER_SKIN);
-	}
 
 	/** All axes default to {@code scale}
 	 * @see GlStateManager#scale(float, float, float) */
 	public static void scale(float scale) {
 		GlStateManager.scale(scale, scale, scale);
-	}
-
-	public static void drawRect(Bounds bounds, Color color) {
-		drawRect(bounds, color.getPacked());
-	}
-
-	/** @see Gui#drawRect(int, int, int, int, int) */
-	public static void drawRect(Bounds bounds, int color) {
-		Gui.drawRect(bounds.getLeft(), bounds.getTop(), bounds.getRight(), bounds.getBottom(), color);
-		GlStateManager.enableBlend();
-	}
-
-	public static void drawBorderRect(Bounds bounds, int color) {
-		drawRect(bounds.withWidth(1).grow(0, -1, 0, -1), color);
-		drawRect(bounds.withLeft(bounds.getRight() - 1).grow(0, -1, 0, -1), color);
-
-		drawRect(bounds.withHeight(1), color);
-		drawRect(bounds.withTop(bounds.getBottom() - 1), color);
-	}
-
-	/** @see #drawTexturedModalRect(int, int, int, int, int, int) */
-	public static void drawTexturedModalRect(Point position, Bounds texture) {
-		drawTexturedModalRect(position.getX(), position.getY(), texture.getX(), texture.getY(), texture.getWidth(), texture.getHeight());
-	}
-
-	/** @see #drawTexturedModalRect(int, int, int, int, int, int, int, int) */
-	public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height) {
-		drawTexturedModalRect(x, y, u, v, Math.abs(width), Math.abs(height), width, height);
-	}
-
-	/** @see #drawTexturedModalRect(int, int, int, int, int, int, int, int) */
-	public static void drawTexturedModalRect(Bounds bounds, Bounds texture) {
-		drawTexturedModalRect(bounds.getX(), bounds.getY(), texture.getX(), texture.getY(), bounds.getWidth(), bounds.getHeight(), texture.getWidth(), texture.getHeight());
-	}
-
-	/** Supports negative sized textures
-	 * @see net.minecraft.client.gui.Gui#drawTexturedModalRect(int, int, int, int, int, int) */
-	public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight) {
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder builder = tessellator.getBuffer();
-		builder.begin(7, DefaultVertexFormats.POSITION_TEX);
-
-		builder.pos(x,         y + height, 0).tex( u                 * TEXTURE_NORMALIZE, (v + textureHeight) * TEXTURE_NORMALIZE).endVertex();
-		builder.pos(x + width, y + height, 0).tex((u + textureWidth) * TEXTURE_NORMALIZE, (v + textureHeight) * TEXTURE_NORMALIZE).endVertex();
-		builder.pos(x + width, y,          0).tex((u + textureWidth) * TEXTURE_NORMALIZE,  v                  * TEXTURE_NORMALIZE).endVertex();
-		builder.pos(x,         y,          0).tex( u                 * TEXTURE_NORMALIZE,  v                  * TEXTURE_NORMALIZE).endVertex();
-
-		tessellator.draw();
 	}
 
 	/** Draws text with black borders on all sides */
@@ -139,30 +74,24 @@ public final class GlUtil {
 	}
 
 	/** @see GuiUtils#drawHoveringText(ItemStack, List, int, int, int, int, int, net.minecraft.client.gui.FontRenderer) */
-	public static void drawTooltipBox(int x, int y, int w, int h) {
-		enableBlendTranslucent();
-		GlStateManager.disableRescaleNormal();
-		RenderHelper.disableStandardItemLighting();
-		GlStateManager.disableLighting();
-		GlStateManager.disableDepth();
+	public static void drawTooltipBox(Bounds bounds, double zLevel) {
+		Color borderStart = new Color(80, 80, 0, 255);
+		Color borderEnd = new Color(80, 40, 40, 127);
+		Color background = new Color(183, 16, 0, 16);
 
-		final int zLevel	  = 300;
-		final int bgColor	  = 0xb7100010;
-		final int borderStart = 0x505000ff;
-		final int borderEnd   = (borderStart & 0xfefefe) >> 1 | borderStart & 0xff000000;
+		QuadBuilder builder = new QuadBuilder().setZLevel(zLevel).setColor(background);
+		Bounds thin = bounds.grow(-1, 0, -1, 0).withHeight(1);
 
-		// Box
-		GuiUtils.drawGradientRect(zLevel, x+1, y,	 x+w-1, y+1,   bgColor, bgColor); // Top
-		GuiUtils.drawGradientRect(zLevel, x,   y+1,   x+w,   y+h-1, bgColor, bgColor); // Middle
-		GuiUtils.drawGradientRect(zLevel, x+1, y+h-1, x+w-1, y+h,   bgColor, bgColor); // Bottom
+		// Cross shape background
+		builder.setBounds(thin).render();
+		builder.setBounds(bounds.grow(0, -1, 0, -1)).render();
+		builder.setBounds(thin.anchor(bounds, Direction.SOUTH)).render();
 
 		// Borders
-		GuiUtils.drawGradientRect(zLevel, x+1,   y+1,   x+w-1, y+2,   borderStart, borderStart); // Top
-		GuiUtils.drawGradientRect(zLevel, x+1,   y+2,   x+2,   y+h-2, borderStart, borderEnd);   // Left
-		GuiUtils.drawGradientRect(zLevel, x+w-2, y+2,   x+w-1, y+h-2, borderStart, borderEnd);   // Right
-		GuiUtils.drawGradientRect(zLevel, x+1,   y+h-2, x+w-1, y+h-1, borderEnd,   borderEnd);   // Bottom
-
-		GlStateManager.enableDepth();
+		GlMode.push(GlMode.OUTLINE);
+		builder.setColor(d -> d.getRow() == 0 ? borderStart : borderEnd);
+		builder.setBounds(bounds.grow(-1)).render();
+		GlMode.pop();
 	}
 
 	/** Applies transformations such that the Z axis faces directly towards the player
@@ -188,60 +117,20 @@ public final class GlUtil {
 		GlStateManager.rotate(180, 0, 0, 1);
 	}
 
-	/** {@code progress} defaults to the durability of {@code stack}
-	 * @see #drawProgressBar(Bounds, float, boolean) */
-	public static void drawDamageBar(Bounds bounds, ItemStack stack, boolean vertical) {
-		float progress = (float)(stack.getMaxDamage() - stack.getItemDamage()) / stack.getMaxDamage();
-		drawProgressBar(bounds, progress, vertical);
-	}
-
-	/** Draws a progress bar for item damage
-	 * @param progress Index of progress between 0 and 1
-	 * @param vertical {@code true} to render bar from bottom to top */
-	public static void drawProgressBar(Bounds bounds, float progress, boolean vertical) {
-		drawRect(bounds, Color.BLACK);
-		progress = MathHelper.clamp(progress, 0, 1);
-
-		Color color = Color.fromHSV(progress / 3, 1, 1);
-
-		Bounds bar;
-		if(vertical) {
-			bar = new Bounds(bounds.getWidth() - 1, (int)(progress * bounds.getHeight()));
-			bar = bar.anchor(bounds, Direction.SOUTH_WEST);
-		} else {
-			bar = new Bounds((int)(progress * bounds.getWidth()), bounds.getHeight() - 1);
-			bar = bar.anchor(bounds, Direction.NORTH_WEST);
-		}
-		drawRect(bar, color);
-	}
-
-	/** Draws a progress bar with textures
+		/** Draws a progress bar with textures
 	 * @param progress Index of progress between 0 and 1
 	 * @param direction The direction the bar should fill up in */
-	public static void drawTexturedProgressBar(Point position, Bounds background, Bounds foreground, float progress, Direction direction) {
-		drawTexturedModalRect(position, background);
+	public static void drawProgressBar(QuadBuilder background, QuadBuilder foreground, float progress, Direction direction, boolean rescaleTexture) {
+		direction = direction.mirror();
+		background.render();
 
-		Bounds bounds = background.withPosition(position);
-		Bounds partialBounds = new Bounds(bounds);
-		Bounds partialForeground = new Bounds(foreground);
+		foreground = new QuadBuilder(foreground);
+		foreground.setBounds(foreground.getBounds().scale(progress).anchor(foreground.getBounds(), direction, false, true));
 
-		if(!Options.VERTICAL.isValid(direction)) {
-			int partial = MathHelper.ceil(progress * partialBounds.getWidth());
-
-			partialBounds = partialBounds.withWidth(partial);
-			partialForeground = partialForeground.withWidth(partial);
-		} else {
-			int partial = MathHelper.ceil(progress * partialBounds.getHeight());
-
-			partialBounds = partialBounds.withHeight(partial);
-			partialForeground = partialForeground.withHeight(partial);
+		if(rescaleTexture) {
+			foreground.setTexture(foreground.getTexture().scale(progress).anchor(foreground.getTexture(), direction, false, true));
 		}
-
-		Direction anchor = direction.mirror();
-		partialBounds = partialBounds.anchor(bounds, anchor);
-		partialForeground = partialForeground.anchor(foreground, anchor);
-
-		drawTexturedModalRect(partialBounds.getPosition(), partialForeground);
+		foreground.render();
 	}
 
 	/** @return The size of {@code string} as rendered by Minecraft's font renderer */
