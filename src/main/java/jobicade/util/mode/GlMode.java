@@ -77,6 +77,18 @@ public class GlMode {
 		}
 	};
 
+	public static final GlMode OUTLINE = new GlMode() {
+		@Override
+		protected void begin() {
+			GlStateManager.enableOutlineMode(Color.WHITE.getPacked());
+		}
+
+		@Override
+		protected void end() {
+			GlStateManager.disableOutlineMode();
+		}
+	};
+
 	private static final Deque<GlMode> MODE_STACK = new ArrayDeque<>();
 
 	private static void changeMode(GlMode from, GlMode to) {
