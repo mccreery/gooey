@@ -39,6 +39,18 @@ public enum Direction {
 				}
 			}
 		},
+		SIDES(NORTH, EAST, SOUTH, WEST) {
+			@Override
+			public Direction apply(Direction direction) {
+				if(direction == null || direction == CENTER) {
+					return NORTH;
+				} else if(direction.getRow() == 1) {
+					return direction;
+				} else {
+					return direction.withColumn(1);
+				}
+			}
+		},
 		WEST_EAST(WEST, EAST) {
 			@Override
 			public Direction apply(Direction direction) {
