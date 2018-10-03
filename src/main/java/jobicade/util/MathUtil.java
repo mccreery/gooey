@@ -10,10 +10,16 @@ import java.util.function.Predicate;
 
 import com.google.common.graph.Graph;
 
+import jobicade.util.render.Color;
 import net.minecraft.util.math.MathHelper;
 
 public final class MathUtil {
 	private MathUtil() {}
+
+	public static Color getProgressColor(float progress) {
+		progress = MathHelper.clamp(progress, 0, 1);
+		return Color.fromHSV(progress / 3f, 1, 1);
+	}
 
 	/** @param dividend The left-hand argument of the division
 	 * @param divisor The right-hand argument of the division
