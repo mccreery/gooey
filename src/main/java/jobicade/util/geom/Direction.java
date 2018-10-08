@@ -166,7 +166,7 @@ public enum Direction {
 	}
 
 	public String getUnlocalizedName() {
-		return "betterHud.value." + name;
+		return "direction." + name;
 	}
 
 	public String getLocalizedName() {
