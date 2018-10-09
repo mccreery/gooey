@@ -2,103 +2,69 @@ package jobicade.util.geom;
 
 import java.io.Serializable;
 
-import jobicade.util.MathUtil;
 import net.minecraft.client.gui.ScaledResolution;
 
 public final class Point implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    public static final Point ZERO = new Point(0, 0);
 
-	public static final Point ZERO = new Point(0, 0);
+    public final int x, y;
 
-	private final int x, y;
+    public Point() { this(0, 0); }
 
-	public Point() {
-		this(0, 0);
-	}
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-	public Point(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
+    public Point(Point point) {
+        this.x = point.x;
+        this.y = point.y;
+    }
 
-	public Point(Point point) {
-		this(point.getX(), point.getY());
-	}
+    public Point(ScaledResolution resolution) {
+        this.x = resolution.getScaledWidth();
+        this.y = resolution.getScaledHeight();
+    }
 
-	public Point(ScaledResolution resolution) {
-		this(resolution.getScaledWidth(), resolution.getScaledHeight());
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Point) {
+            Point point = (Point)obj;
+            return x == point.x && y == point.y;
+        }
+        return super.equals(obj);
+    }
 
-	public int getX() {
-		return x;
-	}
+    @Override
+    public int hashCode() {
+        return (31 + x) * 31 + y;
+    }
 
-	public int getY() {
-		return y;
-	}
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 
-	public Point withX(int x) {
-		return new Point(x, getY());
-	}
+    public Point add(int x, int y) { return new Point(this.x + x, this.y + y); }
+    public Point add(Point point) { return new Point(x + point.x, y + point.y); }
 
-	public Point withY(int y) {
-		return new Point(getX(), y);
-	}
+    public Point sub(int x, int y) { return new Point(this.x - x, this.y - y); }
+    public Point sub(Point point) { return new Point(x - point.x, y - point.y); }
 
-	public Point add(Point point) {
-		return new Point(getX() + point.getX(), getY() + point.getY());
-	}
+    public Point invert() { return new Point(-x, -y); }
 
-	public Point add(int x, int y) {
-		return new Point(this.getX() + x, this.getY() + y);
-	}
+    public Point scale(float xf, float yf) {
+        return new Point(Math.round(x * xf), Math.round(y * yf));
+    }
 
-	public Point sub(Point point) {
-		return new Point(getX() - point.getX(), getY() - point.getY());
-	}
+    public Point scale(float xf, float yf, int x, int y) {
+        return new Point(
+            Math.round((this.x - x) * xf + x),
+            Math.round((this.y - y) * yf + y));
+    }
 
-	public Point sub(int x, int y) {
-		return new Point(this.getX() - x, this.getY() - y);
-	}
-
-	public Point scale(float x, float y) {
-		return new Point((int)(this.getX() * x), (int)(this.getY() * y));
-	}
-
-	public Point shiftedBy(Direction direction, int x) {
-		return add((direction.getCol() - 1) * x, (direction.getRow() - 1) * x);
-	}
-
-	public Point invert() {
-		return new Point(-getX(), -getY());
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if(super.equals(other)) {
-			return true;
-		} else if(other instanceof Point) {
-			Point otherPoint = (Point)other;
-			return x == otherPoint.x && y == otherPoint.y;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		return MathUtil.hash(x, y);
-	}
-
-	@Override
-	public String toString() {
-		return String.format("%d,%d", getX(), getY());
-	}
-
-	public static Point fromString(String s) {
-		int comma = s.indexOf(',');
-
-		return new Point(Integer.parseInt(s.substring(0, comma)),
-			Integer.parseInt(s.substring(comma + 1)));
-	}
+    public Point scale(float xf, float yf, Point point) {
+        return scale(xf, yf, point.x, point.y);
+    }
 }
