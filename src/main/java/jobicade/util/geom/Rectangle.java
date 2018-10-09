@@ -54,6 +54,7 @@ public final class Rectangle implements Serializable {
 
     public Rectangle translate(int x, int y) { return new Rectangle(this.x + x, this.y + y, width, height); }
     public Rectangle translate(Point offset) { return new Rectangle(this.x + offset.x, this.y + offset.y, width, height); }
+    public Rectangle translate(Direction direction, int x) { return translate(direction.getUnit().scale(x, x)); }
 
     public Rectangle untranslate(int x, int y) { return new Rectangle(this.x - x, this.y - y, width, height); }
     public Rectangle untranslate(Point offset) { return new Rectangle(this.x - offset.x, this.y - offset.y, width, height); }
