@@ -45,4 +45,16 @@ public final class Rectangle implements Serializable {
         return String.format("{x: %d, y: %d, width: %d, height: %d}",
             x, y, width, height);
     }
+
+    public Rectangle move(int x, int y) { return new Rectangle(x, y, width, height); }
+    public Rectangle move(Point position) { return new Rectangle(position.x, position.y, width, height); }
+
+    public Rectangle resize(int width, int height) { return new Rectangle(x, y, width, height); }
+    public Rectangle resize(Point size) { return new Rectangle(x, y, size.x, size.y); }
+
+    public Rectangle translate(int x, int y) { return new Rectangle(this.x + x, this.y + y, width, height); }
+    public Rectangle translate(Point offset) { return new Rectangle(this.x + offset.x, this.y + offset.y, width, height); }
+
+    public Rectangle untranslate(int x, int y) { return new Rectangle(this.x - x, this.y - y, width, height); }
+    public Rectangle untranslate(Point offset) { return new Rectangle(this.x - offset.x, this.y - offset.y, width, height); }
 }
