@@ -39,4 +39,10 @@ public final class Rectangle implements Serializable {
     public int hashCode() {
         return (((31 + x) * 31 + y) * 31 + width) * 31 + height;
     }
+
+    @Override
+    public String toString() {
+        return String.format("{x: %d, y: %d, width: %d, height: %d}",
+            x, y, width, height);
+    }
 }
