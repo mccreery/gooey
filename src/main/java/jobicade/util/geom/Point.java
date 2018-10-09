@@ -48,6 +48,7 @@ public final class Point implements Serializable {
 
     public Point add(int x, int y) { return new Point(this.x + x, this.y + y); }
     public Point add(Point point) { return new Point(x + point.x, y + point.y); }
+    public Point add(Direction direction, int x) { return add(direction.getUnit().scale(x, x)); }
 
     public Point sub(int x, int y) { return new Point(this.x - x, this.y - y); }
     public Point sub(Point point) { return new Point(x - point.x, y - point.y); }
