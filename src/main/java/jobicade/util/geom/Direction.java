@@ -23,13 +23,13 @@ public enum Direction {
 	SOUTH_EAST("southEast");
 
 	public enum Options implements Function<Direction, Direction> {
-		ALL((1 << Direction.values().length) - 1) {
+		ALL("all", (1 << Direction.values().length) - 1) {
 			@Override
 			public Direction apply(Direction direction) {
 				return direction != null ? direction : NORTH_WEST;
 			}
 		},
-		CORNERS(NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST) {
+		CORNERS("corners", NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST) {
 			@Override
 			public Direction apply(Direction direction) {
 				if(direction != null) {
@@ -39,7 +39,7 @@ public enum Direction {
 				}
 			}
 		},
-		SIDES(NORTH, EAST, SOUTH, WEST) {
+		SIDES("sides", NORTH, EAST, SOUTH, WEST) {
 			@Override
 			public Direction apply(Direction direction) {
 				if(direction == null || direction == CENTER) {
@@ -51,31 +51,31 @@ public enum Direction {
 				}
 			}
 		},
-		WEST_EAST(WEST, EAST) {
+		WEST_EAST("westEast", WEST, EAST) {
 			@Override
 			public Direction apply(Direction direction) {
 				return direction != null && direction.getColumn() >= 2 ? EAST : WEST;
 			}
 		},
-		NORTH_SOUTH(NORTH, SOUTH) {
+		NORTH_SOUTH("northSouth", NORTH, SOUTH) {
 			@Override
 			public Direction apply(Direction direction) {
 				return direction != null && direction.getRow() >= 2 ? SOUTH : NORTH;
 			}
 		},
-		HORIZONTAL(WEST, CENTER, EAST) {
+		HORIZONTAL("horizontal", WEST, CENTER, EAST) {
 			@Override
 			public Direction apply(Direction direction) {
 				return direction != null ? direction.withRow(1) : WEST;
 			}
 		},
-		VERTICAL(NORTH, CENTER, SOUTH) {
+		VERTICAL("vertical", NORTH, CENTER, SOUTH) {
 			@Override
 			public Direction apply(Direction direction) {
 				return direction != null ? direction.withColumn(1) : NORTH;
 			}
 		},
-		I(NORTH_WEST, NORTH, NORTH_EAST, CENTER, SOUTH_WEST, SOUTH, SOUTH_EAST) {
+		I("i", NORTH_WEST, NORTH, NORTH_EAST, CENTER, SOUTH_WEST, SOUTH, SOUTH_EAST) {
 			@Override
 			public Direction apply(Direction direction) {
 				switch(direction) {
@@ -85,7 +85,7 @@ public enum Direction {
 				}
 			}
 		},
-		BAR(NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH, SOUTH_EAST) {
+		BAR("bar", NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH, SOUTH_EAST) {
 			@Override
 			public Direction apply(Direction direction) {
 				if(direction == SOUTH) {
@@ -95,13 +95,13 @@ public enum Direction {
 				}
 			}
 		},
-		X(NORTH_WEST, NORTH_EAST, CENTER, SOUTH_WEST, SOUTH_EAST) {
+		X("x", NORTH_WEST, NORTH_EAST, CENTER, SOUTH_WEST, SOUTH_EAST) {
 			@Override
 			public Direction apply(Direction direction) {
 				return direction == CENTER ? direction : CORNERS.apply(direction);
 			}
 		},
-		TOP_BOTTOM(NORTH_WEST, NORTH, NORTH_EAST, SOUTH_WEST, SOUTH, SOUTH_EAST) {
+		TOP_BOTTOM("topBottom", NORTH_WEST, NORTH, NORTH_EAST, SOUTH_WEST, SOUTH, SOUTH_EAST) {
 			@Override
 			public Direction apply(Direction direction) {
 				if(direction == null) {
@@ -113,7 +113,7 @@ public enum Direction {
 				}
 			}
 		},
-		LEFT_RIGHT(NORTH_WEST, WEST, SOUTH_WEST, NORTH_EAST, EAST, SOUTH_EAST) {
+		LEFT_RIGHT("leftRight", NORTH_WEST, WEST, SOUTH_WEST, NORTH_EAST, EAST, SOUTH_EAST) {
 			@Override
 			public Direction apply(Direction direction) {
 				if(direction == null) {
@@ -125,22 +125,26 @@ public enum Direction {
 				}
 			}
 		},
-		NONE() {
+		NONE("none") {
 			@Override
 			public Direction apply(Direction direction) {
 				return null;
 			}
 		};
 
+		private final String unlocalizedName;
 		private final List<Direction> directions;
 		private final int flags;
 
-		Options(Direction... directions) {
+		Options(String unlocalizedName, Direction... directions) {
+			this.unlocalizedName = unlocalizedName;
 			this.directions = Collections.unmodifiableList(Arrays.asList(directions));
 			flags = getFlags(directions);
 		}
 
-		Options(int flags) {
+		Options(String unlocalizedName, int flags) {
+			this.unlocalizedName = unlocalizedName;
+
 			List<Direction> directions = new ArrayList<>(Direction.values().length);
 			for(Direction direction : Direction.values()) {
 				if(direction.in(flags)) directions.add(direction);
@@ -148,6 +152,14 @@ public enum Direction {
 
 			this.directions = Collections.unmodifiableList(directions);
 			this.flags = flags;
+		}
+
+		public String getUnlocalizedName() {
+			return "direction.options." + unlocalizedName;
+		}
+
+		public String getLocalizedName() {
+			return I18n.format(getUnlocalizedName());
 		}
 
 		public List<Direction> getDirections() {
@@ -159,14 +171,14 @@ public enum Direction {
 		}
 	}
 
-	private final String name;
+	private final String unlocalizedName;
 
-	Direction(String name) {
-		this.name = name;
+	Direction(String unlocalizedName) {
+		this.unlocalizedName = unlocalizedName;
 	}
 
 	public String getUnlocalizedName() {
-		return "direction." + name;
+		return "direction." + unlocalizedName;
 	}
 
 	public String getLocalizedName() {
@@ -221,12 +233,12 @@ public enum Direction {
 
 	@Override
 	public String toString() {
-		return name;
+		return unlocalizedName;
 	}
 
 	public static Direction fromString(String name) {
 		for(Direction direction : values()) {
-			if(direction.name.equalsIgnoreCase(name)) return direction;
+			if(direction.unlocalizedName.equalsIgnoreCase(name)) return direction;
 		}
 		return null;
 	}

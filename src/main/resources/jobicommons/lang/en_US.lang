@@ -7,3 +7,17 @@ direction.east=East
 direction.southWest=South-west
 direction.south=South
 direction.southEast=South-east
+
+direction.options.all=all
+direction.options.corners=Corners
+direction.options.sides=Sides
+direction.options.westEast=West/East
+direction.options.northSouth=North/South
+direction.options.horizontal=Horizontal
+direction.options.vertical=Vertical
+direction.options.i=I
+direction.options.bar=Bar
+direction.options.x=X
+direction.options.topBottom=Top/Bottom
+direction.options.leftRight=Left/Right
+direction.options.none=None
