@@ -38,7 +38,7 @@ public class LayoutManager {
 
 	public Bounds positionBar(Bounds bounds, Direction alignment, int postSpacer) {
 		int offset = 0;
-		int column = alignment.getColumn();
+		int column = alignment.getCol();
 
 		switch(column) {
 			case 0: offset = GuiIngameForge.left_height; break;

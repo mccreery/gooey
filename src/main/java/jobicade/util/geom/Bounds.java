@@ -186,7 +186,7 @@ public final class Bounds implements Serializable {
 	/** @param direction The anchor direction
 	 * @return The given anchor point in this bounds */
 	public Point getAnchor(Direction direction) {
-		return getPosition().add(getSize().scale(direction.getColumn() / 2f, direction.getRow() / 2f));
+		return getPosition().add(getSize().scale(direction.getCol() / 2f, direction.getRow() / 2f));
 	}
 
 	/** Aligns this bounds around the anchor with the given alignment
@@ -217,7 +217,7 @@ public final class Bounds implements Serializable {
 			if(alignment.getRow() == 1) {
 				bounds = bounds.withHeight(container.getHeight());
 			}
-			if(alignment.getColumn() == 1) {
+			if(alignment.getCol() == 1) {
 				bounds = bounds.withWidth(container.getWidth());
 			}
 		}

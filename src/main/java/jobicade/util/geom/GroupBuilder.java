@@ -81,7 +81,7 @@ public class GroupBuilder<T extends GuiElement> {
     }
 
     private static int getPitch(Point cellSize, Direction direction, int minPitch, int minGutter) {
-		int cell = direction.getColumn() == 1 ? cellSize.getY() : cellSize.getX();
+		int cell = direction.getCol() == 1 ? cellSize.getY() : cellSize.getX();
 		return Math.max(cell + minGutter, minPitch);
 	}
 }
