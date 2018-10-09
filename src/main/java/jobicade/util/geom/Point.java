@@ -43,7 +43,7 @@ public final class Point implements Serializable {
 
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return String.format("{x: %d, y: %d}", x, y);
     }
 
     public Point add(int x, int y) { return new Point(this.x + x, this.y + y); }
