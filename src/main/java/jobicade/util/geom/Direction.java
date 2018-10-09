@@ -25,6 +25,10 @@ public enum Direction {
 		this.col = col;
 	}
 
+	public Point getUnit() {
+		return new Point(col - 1, row - 1);
+	}
+
 	public static Direction get(int row, int col) {
 		return grid[row][col];
 	}
