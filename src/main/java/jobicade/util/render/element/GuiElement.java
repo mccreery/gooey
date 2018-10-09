@@ -1,4 +1,4 @@
-package jobicade.util.render;
+package jobicade.util.render.element;
 
 import jobicade.util.geom.Bounds;
 import jobicade.util.geom.Point;

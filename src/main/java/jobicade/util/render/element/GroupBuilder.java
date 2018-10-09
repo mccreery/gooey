@@ -1,10 +1,13 @@
-package jobicade.util.geom;
+package jobicade.util.render.element;
 
 import java.util.List;
 
-import jobicade.util.render.GuiElement;
+import org.apache.commons.lang3.builder.Builder;
 
-public class GroupBuilder<T extends GuiElement> {
+import jobicade.util.geom.Direction;
+import jobicade.util.geom.Point;
+
+public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
     private List<T> source;
 
 	private Direction direction = Direction.EAST;
@@ -62,6 +65,7 @@ public class GroupBuilder<T extends GuiElement> {
         return this;
     }
 
+    @Override
     public GuiElement build() {
         Point cellSize = getMaxCellSize();
         int pitch = getPitch(cellSize, direction, minPitch, minGutter);

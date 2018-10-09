@@ -1,10 +1,12 @@
-package jobicade.util.geom;
+package jobicade.util.render.element;
 
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-import jobicade.util.render.GuiElement;
+import jobicade.util.geom.Bounds;
+import jobicade.util.geom.Direction;
+import jobicade.util.geom.Point;
 
 class RenderGroup extends GuiElement {
 	private final List<GuiElement> source;

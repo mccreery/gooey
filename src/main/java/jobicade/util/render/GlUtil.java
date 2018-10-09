@@ -6,6 +6,7 @@ import jobicade.util.geom.Bounds;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
 import jobicade.util.mode.GlMode;
+import jobicade.util.render.element.QuadBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
@@ -83,14 +84,14 @@ public final class GlUtil {
 		Bounds thin = bounds.grow(-1, 0, -1, 0).withHeight(1);
 
 		// Cross shape background
-		builder.setBounds(thin).render();
-		builder.setBounds(bounds.grow(0, -1, 0, -1)).render();
-		builder.setBounds(thin.anchor(bounds, Direction.SOUTH)).render();
+		builder.setBounds(thin).build().render();
+		builder.setBounds(bounds.grow(0, -1, 0, -1)).build().render();
+		builder.setBounds(thin.anchor(bounds, Direction.SOUTH)).build().render();
 
 		// Borders
 		GlMode.push(GlMode.OUTLINE);
 		builder.setColor(d -> d.getRow() == 0 ? borderStart : borderEnd);
-		builder.setBounds(bounds.grow(-1)).render();
+		builder.setBounds(bounds.grow(-1)).build().render();
 		GlMode.pop();
 	}
 
@@ -122,7 +123,7 @@ public final class GlUtil {
 	 * @param direction The direction the bar should fill up in */
 	public static void drawProgressBar(QuadBuilder background, QuadBuilder foreground, float progress, Direction direction, boolean rescaleTexture) {
 		direction = direction.mirror();
-		background.render();
+		background.build().render();
 
 		foreground = new QuadBuilder(foreground);
 		foreground.setBounds(foreground.getBounds().scale(progress).anchor(foreground.getBounds(), direction, false, true));
@@ -130,7 +131,7 @@ public final class GlUtil {
 		if(rescaleTexture) {
 			foreground.setTexture(foreground.getTexture().scale(progress).anchor(foreground.getTexture(), direction, false, true));
 		}
-		foreground.render();
+		foreground.build().render();
 	}
 
 	/** @return The size of {@code string} as rendered by Minecraft's font renderer */
