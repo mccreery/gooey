@@ -127,6 +127,26 @@ public final class Rectangle implements Serializable {
      */
     public static Rectangle fromLeastMost(Point least, Point most) { return new Rectangle(least.getX(), least.getY(), most.getX() - least.getX(), most.getY() - least.getY()); }
 
+    /**
+     * Returns a rectangle representing padding with the origin zero. The
+     * distance of the rectangle from any side of zero is the padding on that
+     * side.
+     *
+     * @param left The left padding.
+     * @param top The top padding.
+     * @param right The right padding.
+     * @param bottom The bottom padding.
+     * @return A rectangle representing padding.
+     * @see #grow(Rectangle)
+     */
+    public static Rectangle createPadding(int left, int top, int right, int bottom) { return new Rectangle(-left, -top, left + right, top + bottom); }
+
+    /**
+     * @param padding The padding for all sides.
+     * @see #createPadding(int, int, int, int)
+     */
+    public static Rectangle createPadding(int padding) { return new Rectangle(-padding, -padding, 2 * padding, 2 * padding); }
+
     // Getters and setters
 
     /**
@@ -423,6 +443,26 @@ public final class Rectangle implements Serializable {
      * @see #untranslate(int, int)
      */
     public Rectangle untranslate(Point offset) { return new Rectangle(this.x - offset.getX(), this.y - offset.getY(), width, height); }
+
+    /**
+     * Adds each pair of corresponding coordinates between the two rectangles.
+     * This allows for padding to be represented by a normal rectangle,
+     * and inset to be represented by a denormal rectangle.
+     *
+     * @param padding The padding rectangle.
+     * @return The result of the sum of each pair of corresponding coordinates
+     * between both rectangles.
+     * @see #createPadding(int, int, int, int)
+     */
+    public Rectangle grow(Rectangle padding) { return new Rectangle(this.x + padding.x, this.y + padding.y, this.width + padding.width, this.height + padding.height); }
+
+    /**
+     * Adds a constant padding distance to each side of the rectangle.
+     *
+     * @param padding The padding distance.
+     * @return The result of padding the rectangle by the distance.
+     */
+    public Rectangle grow(int padding) { return new Rectangle(this.x - padding, this.y - padding, this.width + padding * 2, this.height + padding * 2); }
 
     // Boolean operations
 
