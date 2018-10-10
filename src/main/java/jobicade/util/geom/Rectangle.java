@@ -445,6 +445,17 @@ public final class Rectangle implements Serializable {
     public Rectangle untranslate(Point offset) { return new Rectangle(this.x - offset.getX(), this.y - offset.getY(), width, height); }
 
     /**
+     * Adds the given padding distance to each side of the rectangle.
+     *
+     * @param left The left padding.
+     * @param top The top padding.
+     * @param right The right padding.
+     * @param bottom The bottom padding.
+     * @return The result of padding the rectangle by the given distances.
+     */
+    public Rectangle grow(int left, int top, int right, int bottom) { return new Rectangle(this.x - left, this.y - top, this.width + left + right, this.height + top + bottom); }
+
+    /**
      * Adds each pair of corresponding coordinates between the two rectangles.
      * This allows for padding to be represented by a normal rectangle,
      * and inset to be represented by a denormal rectangle.
