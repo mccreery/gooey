@@ -1,6 +1,7 @@
 package jobicade.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -41,12 +42,7 @@ public final class MathUtil {
 	/** Avoids autoboxing to {@link Integer}
 	 * @see Objects#hash(Object...) */
 	public static int hash(int... values) {
-		int hashCode = 1;
-
-		for(int x : values) {
-			hashCode = 31 * hashCode + x;
-		}
-		return hashCode;
+		return Arrays.hashCode(values);
 	}
 
 	/** @return an {@code int} version of {@code health}
