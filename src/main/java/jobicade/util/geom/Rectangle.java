@@ -571,4 +571,53 @@ public final class Rectangle implements Serializable {
 
         return new Rectangle(x, y, width, height);
     }
+
+    // Direction functions
+
+    /**
+     * Returns the anchor point in this rectangle for a direction.
+     * For example, {@link Direction#NORTH_WEST} will return the top left
+     * coordinate.
+     *
+     * @param direction The anchor direction.
+     * @return The anchor point in this rectangle for the given direction.
+     */
+    public Point getAnchor(Direction direction) {
+        return new Point(
+            x + width * direction.getCol() / 2,
+            y + height * direction.getRow() / 2);
+    }
+
+    /**
+     * Aligns the given anchor direction of the rectangle with an anchor point.
+     * For example, {@link Direction#NORTH_WEST} would align the northwest
+     * corner of the rectangle with the anchor point. The size of the rectangle
+     * remains the same.
+     *
+     * @param anchor The anchor point.
+     * @param alignment The anchor direction within the rectangle.
+     * @return The result of aligning the anchor direction to the anchor point.
+     */
+    public Rectangle align(Point anchor, Direction alignment) {
+        return move(anchor.sub(move(Point.zero()).getAnchor(alignment)));
+    }
+
+    /**
+     * Anchors the rectangle inside or outside another rectangle. The anchor
+     * for the given direction in the result will be the same as the same anchor
+     * in the container. The size of the rectangle remains the same.
+     *
+     * <p>If outside, the anchor direction will be mirrored for this
+     * rectangle, so the result will always sit on the outside edge of the
+     * container.
+     *
+     * @param container The container to anchor to.
+     * @param direction The direction of the anchor point.
+     * @param outside {@code true} to align the opposite point on this
+     * rectangle to the anchor point on the container.
+     * @return The rectangle anchored inside or outside another rectangle.
+     */
+    public Rectangle anchor(Rectangle container, Direction direction, boolean outside) {
+        return align(container.getAnchor(direction), outside ? direction.mirror() : direction);
+    }
 }
