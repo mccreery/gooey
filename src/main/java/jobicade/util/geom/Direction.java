@@ -1,5 +1,9 @@
 package jobicade.util.geom;
 
+/**
+ * Enum representing the eight cardinal directions and the
+ * "null" direction, center.
+ */
 public enum Direction {
 	NORTH_WEST(0, 0),
 	NORTH(0, 1),
