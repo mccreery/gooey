@@ -22,7 +22,7 @@ public final class Rectangle implements Serializable {
     }
 
     public Rectangle(Point position, Point size) {
-        this(position.x, position.y, size.x, size.y);
+        this(position.getX(), position.getY(), size.getX(), size.getY());
     }
 
     @Override
@@ -47,15 +47,16 @@ public final class Rectangle implements Serializable {
     }
 
     public Rectangle move(int x, int y) { return new Rectangle(x, y, width, height); }
-    public Rectangle move(Point position) { return new Rectangle(position.x, position.y, width, height); }
+    public Rectangle move(Point position) { return new Rectangle(position.getX(), position.getY(), width, height); }
 
     public Rectangle resize(int width, int height) { return new Rectangle(x, y, width, height); }
-    public Rectangle resize(Point size) { return new Rectangle(x, y, size.x, size.y); }
+    public Rectangle resize(Point size) { return new Rectangle(x, y, size.getX(), size.getY()); }
 
     public Rectangle translate(int x, int y) { return new Rectangle(this.x + x, this.y + y, width, height); }
-    public Rectangle translate(Point offset) { return new Rectangle(this.x + offset.x, this.y + offset.y, width, height); }
+    public Rectangle translate(Point offset) { return new Rectangle(this.x + offset.getX(), this.y + offset.getY(), width, height); }
     public Rectangle translate(Direction direction, int x) { return translate(direction.getUnit().scale(x, x)); }
 
     public Rectangle untranslate(int x, int y) { return new Rectangle(this.x - x, this.y - y, width, height); }
-    public Rectangle untranslate(Point offset) { return new Rectangle(this.x - offset.x, this.y - offset.y, width, height); }
+    public Rectangle untranslate(Point offset) { return new Rectangle(this.x - offset.getX(), this.y - offset.getY(), width, height); }
+
 }

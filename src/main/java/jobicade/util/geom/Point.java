@@ -8,7 +8,7 @@ public final class Point implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final Point ZERO = new Point(0, 0);
 
-    public final int x, y;
+    private final int x, y;
 
     public Point() { this(0, 0); }
 
@@ -45,6 +45,11 @@ public final class Point implements Serializable {
     public String toString() {
         return String.format("{x: %d, y: %d}", x, y);
     }
+
+    public int getX() { return x; }
+    public int getY() { return y; }
+    public Point withX(int x) { return new Point(x, y); }
+    public Point withY(int y) { return new Point(x, y); }
 
     public Point add(int x, int y) { return new Point(this.x + x, this.y + y); }
     public Point add(Point point) { return new Point(x + point.x, y + point.y); }
