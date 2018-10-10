@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-import jobicade.util.geom.Bounds;
+import jobicade.util.geom.Rectangle;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
 
@@ -18,7 +18,7 @@ class RenderGroup extends GuiElement {
 	private final int pitch;
 
 	RenderGroup(List<? extends GuiElement> source, Direction direction, Direction cellAlignment, Point cellSize, int pitch) {
-		super(cellSize.shiftedBy(direction, pitch * (source.size() - 1)));
+		super(cellSize.add(direction, pitch * (source.size() - 1)));
 
 		this.source = ImmutableList.copyOf(source);
 		this.direction = direction;
@@ -31,10 +31,10 @@ class RenderGroup extends GuiElement {
 	public void setPosition(Point position) {
 		super.setPosition(position);
 
-		Bounds cell = new Bounds(cellSize).anchor(getBounds(), direction.mirror());
+		Rectangle cell = Rectangle.fromPositionSize(Point.zero(), cellSize).anchor(getBounds(), direction.mirror(), false);
 		for(GuiElement element : source) {
-			element.setPosition(element.getBounds().anchor(cell, cellAlignment).getPosition());
-			cell = cell.shift(direction, pitch);
+			element.setPosition(element.getBounds().anchor(cell, cellAlignment, false).getPosition());
+			cell = cell.translate(direction, pitch);
 		}
 	}
 

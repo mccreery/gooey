@@ -4,14 +4,14 @@ import java.util.function.Function;
 
 import org.apache.commons.lang3.builder.Builder;
 
-import jobicade.util.geom.Bounds;
+import jobicade.util.geom.Rectangle;
 import jobicade.util.geom.Direction;
 import jobicade.util.render.Color;
 
 public class QuadBuilder implements Builder<GuiElement> {
     private double zLevel;
-    private Bounds bounds;
-    private Bounds texture;
+    private Rectangle bounds;
+    private Rectangle texture;
     private Function<Direction, Color> colorFunction;
 
     public QuadBuilder() {}
@@ -30,16 +30,16 @@ public class QuadBuilder implements Builder<GuiElement> {
         return this;
     }
 
-    public Bounds getBounds() {return bounds;}
+    public Rectangle getBounds() {return bounds;}
 
-    public QuadBuilder setBounds(Bounds bounds) {
+    public QuadBuilder setBounds(Rectangle bounds) {
         this.bounds = bounds;
         return this;
     }
 
-    public Bounds getTexture() {return texture;}
+    public Rectangle getTexture() {return texture;}
 
-    public QuadBuilder setTexture(Bounds texture) {
+    public QuadBuilder setTexture(Rectangle texture) {
         this.texture = texture;
         return this;
     }

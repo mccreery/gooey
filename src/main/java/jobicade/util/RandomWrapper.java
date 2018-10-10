@@ -2,7 +2,7 @@ package jobicade.util;
 
 import java.util.Random;
 
-import jobicade.util.geom.Bounds;
+import jobicade.util.geom.Rectangle;
 import jobicade.util.geom.Point;
 
 public class RandomWrapper {
@@ -43,7 +43,7 @@ public class RandomWrapper {
 
 	/** @param bounds The range
 	 * @return A random point within the bounds */
-	public Point nextPoint(Bounds bounds) {
+	public Point nextPoint(Rectangle bounds) {
 		return new Point(
 			nextInt(bounds.getLeft(), bounds.getRight()),
 			nextInt(bounds.getTop(), bounds.getBottom()));
