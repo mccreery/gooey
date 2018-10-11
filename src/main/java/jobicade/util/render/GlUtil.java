@@ -5,7 +5,7 @@ import static jobicade.util.Constants.MC;
 import jobicade.util.geom.Rectangle;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
-import jobicade.util.mode.GlMode;
+import jobicade.util.render.mode.GlMode;
 import jobicade.util.render.element.QuadBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;

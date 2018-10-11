@@ -1,4 +1,4 @@
-package jobicade.util.mode;
+package jobicade.util.render.mode;
 
 import static jobicade.util.Constants.ICONS;
 import static jobicade.util.Constants.MC;
