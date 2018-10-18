@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.Builder;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
 
-public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
+public class GridBuilder<T extends GuiElement> implements Builder<GuiElement> {
     private List<T> source;
     private int columns = -1;
 
@@ -19,7 +19,7 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
 
     private GridSpacingPolicy spacingPolicy = cellSize -> cellSize;
 
-    public GroupBuilder(List<T> source) {
+    public GridBuilder(List<T> source) {
         this.source = source;
     }
 
@@ -27,7 +27,7 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return source;
     }
 
-    public GroupBuilder<T> setSource(List<T> source) {
+    public GridBuilder<T> setSource(List<T> source) {
         this.source = source;
         return this;
     }
@@ -36,7 +36,7 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return columns;
     }
 
-    public GroupBuilder<T> setColumns(int columns) {
+    public GridBuilder<T> setColumns(int columns) {
         this.columns = columns;
         return this;
     }
@@ -45,7 +45,7 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return flowDirection;
     }
 
-    public GroupBuilder<T> setFlowDirection(Direction flowDirection) {
+    public GridBuilder<T> setFlowDirection(Direction flowDirection) {
         if(flowDirection.getRow() == 1 || flowDirection.getCol() == 1) {
             throw new IllegalArgumentException("Flow direction must be a diagonal");
         }
@@ -57,7 +57,7 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return transpose;
     }
 
-    public GroupBuilder<T> setTransposed(boolean transposed) {
+    public GridBuilder<T> setTransposed(boolean transposed) {
         this.transpose = transposed;
         return this;
     }
@@ -66,7 +66,7 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return cellAlignment;
     }
 
-    public GroupBuilder<T> setCellAlignment(Direction cellAlignment) {
+    public GridBuilder<T> setCellAlignment(Direction cellAlignment) {
         this.cellAlignment = cellAlignment;
         return this;
     }
@@ -75,7 +75,7 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return spacingPolicy;
     }
 
-    public GroupBuilder<T> setSpacingPolicy(GridSpacingPolicy policy) {
+    public GridBuilder<T> setSpacingPolicy(GridSpacingPolicy policy) {
         this.spacingPolicy = policy;
         return this;
     }
@@ -105,7 +105,7 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         }
         size = size.add(cellSize);
 
-        return new RenderGroup(size, source, columns, cellSize, cellPitch, flowDirection, transpose, cellAlignment);
+        return new GuiElementGrid(size, source, columns, cellSize, cellPitch, flowDirection, transpose, cellAlignment);
     }
 
     private Point getMaxCellSize() {

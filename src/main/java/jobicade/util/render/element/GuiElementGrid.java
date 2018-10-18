@@ -8,7 +8,7 @@ import jobicade.util.geom.Rectangle;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
 
-class RenderGroup extends GuiElement {
+class GuiElementGrid extends GuiElement {
 	private final List<GuiElement> source;
 	private final int columns;
 	private final Point cellSize;
@@ -18,7 +18,7 @@ class RenderGroup extends GuiElement {
 	private final boolean transpose;
 	private final Direction cellAlignment;
 
-	RenderGroup(Point size, List<? extends GuiElement> source, int columns, Point cellSize, Point cellPitch,
+	GuiElementGrid(Point size, List<? extends GuiElement> source, int columns, Point cellSize, Point cellPitch,
 			Direction flowDirection, boolean transpose, Direction cellAlignment) {
 		super(size);
 		this.source = ImmutableList.copyOf(source);
