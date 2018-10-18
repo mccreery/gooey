@@ -31,9 +31,7 @@ class GuiElementGrid extends GuiElement {
 	}
 
 	@Override
-	public void setPosition(Point position) {
-		super.setPosition(position);
-
+	public void render() {
 		Rectangle cell = Rectangle.fromPositionSize(Point.zero(), cellSize)
 			.anchor(getBounds(), flowDirection.mirror(), false);
 
@@ -52,16 +50,11 @@ class GuiElementGrid extends GuiElement {
 			for(int j = 0; i < source.size() && j < columns; i++, j++) {
 				GuiElement element = source.get(i);
 				element.setPosition(element.getBounds().anchor(cell, cellAlignment, false).getPosition());
+				element.render();
+
 				cell = cell.translate(colOffset);
 			}
 			cell = rowStart.translate(rowOffset);
-		}
-	}
-
-	@Override
-	public void render() {
-		for(GuiElement element : source) {
-			element.render();
 		}
 	}
 }
