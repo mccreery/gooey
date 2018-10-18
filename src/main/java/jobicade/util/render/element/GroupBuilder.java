@@ -2,6 +2,8 @@ package jobicade.util.render.element;
 
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+
 import org.apache.commons.lang3.builder.Builder;
 
 import jobicade.util.geom.Direction;
@@ -9,12 +11,13 @@ import jobicade.util.geom.Point;
 
 public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
     private List<T> source;
+    private int columns = -1;
 
-	private Direction direction = Direction.EAST;
-	private Direction cellAlignment = Direction.CENTER;
+	private Direction flowDirection;
+	private boolean transpose;
+    private Direction cellAlignment;
 
-	private int minPitch;
-    private int minGutter;
+    private GridSpacingPolicy spacingPolicy = cellSize -> cellSize;
 
     public GroupBuilder(List<T> source) {
         this.source = source;
@@ -29,12 +32,33 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return this;
     }
 
-    public Direction getDirection() {
-        return direction;
+    public int getColumns() {
+        return columns;
     }
 
-    public GroupBuilder<T> setDirection(Direction direction) {
-        this.direction = direction;
+    public GroupBuilder<T> setColumns(int columns) {
+        this.columns = columns;
+        return this;
+    }
+
+    public Direction getFlowDirection() {
+        return flowDirection;
+    }
+
+    public GroupBuilder<T> setFlowDirection(Direction flowDirection) {
+        if(flowDirection.getRow() == 1 || flowDirection.getCol() == 1) {
+            throw new IllegalArgumentException("Flow direction must be a diagonal");
+        }
+        this.flowDirection = flowDirection;
+        return this;
+    }
+
+    public boolean getTransposed() {
+        return transpose;
+    }
+
+    public GroupBuilder<T> setTransposed(boolean transposed) {
+        this.transpose = transposed;
         return this;
     }
 
@@ -47,30 +71,41 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return this;
     }
 
-    public int getMinPitch() {
-        return minPitch;
+    public GridSpacingPolicy getSpacingPolicy() {
+        return spacingPolicy;
     }
 
-    public GroupBuilder<T> setMinPitch(int minPitch) {
-        this.minPitch = minPitch;
-        return this;
-    }
-
-    public int getMinGutter() {
-        return minGutter;
-    }
-
-    public GroupBuilder<T> setMinGutter(int minGutter) {
-        this.minGutter = minGutter;
+    public GroupBuilder<T> setSpacingPolicy(GridSpacingPolicy policy) {
+        this.spacingPolicy = policy;
         return this;
     }
 
     @Override
     public GuiElement build() {
-        Point cellSize = getMaxCellSize();
-        int pitch = getPitch(cellSize, direction, minPitch, minGutter);
+        List<T> source = ImmutableList.copyOf(this.source);
 
-        return new RenderGroup(source, direction, cellAlignment, cellSize, pitch);
+        Point cellSize = getMaxCellSize();
+        Point cellPitch = spacingPolicy.getPitch(cellSize);
+
+        boolean transpose = this.transpose;
+        int columns = this.columns;
+
+        if(columns <= 0) {
+            transpose = !transpose;
+            columns = 1;
+        }
+
+        Point size = cellPitch;
+        int rows = (source.size() + columns - 1) / columns;
+
+        if(transpose) {
+            size = size.add(flowDirection.getUnit().scale(rows, columns));
+        } else {
+            size = size.add(flowDirection.getUnit().scale(columns, rows));
+        }
+        size = size.add(cellSize);
+
+        return new RenderGroup(size, source, columns, cellSize, cellPitch, flowDirection, transpose, cellAlignment);
     }
 
     private Point getMaxCellSize() {
@@ -83,9 +118,4 @@ public class GroupBuilder<T extends GuiElement> implements Builder<GuiElement> {
         }
         return new Point(x, y);
     }
-
-    private static int getPitch(Point cellSize, Direction direction, int minPitch, int minGutter) {
-		int cell = direction.getCol() == 1 ? cellSize.getY() : cellSize.getX();
-		return Math.max(cell + minGutter, minPitch);
-	}
 }
