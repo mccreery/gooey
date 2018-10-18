@@ -10,31 +10,51 @@ import jobicade.util.geom.Point;
 
 class RenderGroup extends GuiElement {
 	private final List<GuiElement> source;
+	private final int columns;
+	private final Point cellSize;
+	private final Point cellPitch;
 
-	private final Direction direction;
+	private final Direction flowDirection;
+	private final boolean transpose;
 	private final Direction cellAlignment;
 
-	private final Point cellSize;
-	private final int pitch;
-
-	RenderGroup(List<? extends GuiElement> source, Direction direction, Direction cellAlignment, Point cellSize, int pitch) {
-		super(cellSize.add(direction, pitch * (source.size() - 1)));
-
+	RenderGroup(Point size, List<? extends GuiElement> source, int columns, Point cellSize, Point cellPitch,
+			Direction flowDirection, boolean transpose, Direction cellAlignment) {
+		super(size);
 		this.source = ImmutableList.copyOf(source);
-		this.direction = direction;
-		this.cellAlignment = cellAlignment;
+		this.columns = columns;
 		this.cellSize = cellSize;
-		this.pitch = pitch;
+		this.cellPitch = cellPitch;
+		this.flowDirection = flowDirection;
+		this.transpose = transpose;
+		this.cellAlignment = cellAlignment;
 	}
 
 	@Override
 	public void setPosition(Point position) {
 		super.setPosition(position);
 
-		Rectangle cell = Rectangle.fromPositionSize(Point.zero(), cellSize).anchor(getBounds(), direction.mirror(), false);
-		for(GuiElement element : source) {
-			element.setPosition(element.getBounds().anchor(cell, cellAlignment, false).getPosition());
-			cell = cell.translate(direction, pitch);
+		Rectangle cell = Rectangle.fromPositionSize(Point.zero(), cellSize)
+			.anchor(getBounds(), flowDirection.mirror(), false);
+
+		Point rowOffset = cellPitch.scale(flowDirection.withCol(1).getUnit());
+		Point colOffset = cellPitch.scale(flowDirection.withRow(1).getUnit());
+
+		if(transpose) {
+			Point temp = rowOffset;
+			rowOffset = colOffset;
+			colOffset = temp;
+		}
+
+		for(int i = 0; i < source.size(); ) {
+			Rectangle rowStart = cell;
+
+			for(int j = 0; i < source.size() && j < columns; i++, j++) {
+				GuiElement element = source.get(i);
+				element.setPosition(element.getBounds().anchor(cell, cellAlignment, false).getPosition());
+				cell = cell.translate(colOffset);
+			}
+			cell = rowStart.translate(rowOffset);
 		}
 	}
 
