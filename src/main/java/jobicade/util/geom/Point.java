@@ -178,6 +178,15 @@ public final class Point implements Serializable {
     }
 
     /**
+     * Scales the point by a factor in X and Y.
+     * @param factor The scaling factor.
+     * @return A point scaled by the given factor.
+     */
+    public Point scale(Point factor) {
+        return new Point(x * factor.x, y * factor.y);
+    }
+
+    /**
      * Scales the point by a factor in X and Y around a point.
      * @param x The point to scale around X coordinate.
      * @param y The point to scale around Y coordinate.
