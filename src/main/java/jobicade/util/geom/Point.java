@@ -134,6 +134,7 @@ public class Point implements Serializable {
 
     /**
      * @param point The other point.
+     * @return The result of moving this point in the given direction
      * @see #add(int, int)
      */
     public Point add(Point point) { return new Point(x + point.x, y + point.y); }
@@ -157,6 +158,7 @@ public class Point implements Serializable {
 
     /**
      * @param point The other point
+     * @return The difference between this point and the other point.
      * @see #sub(int, int)
      */
     public Size sub(Point point) { return new Size(x - point.x, y - point.y); }
@@ -179,6 +181,7 @@ public class Point implements Serializable {
 
     /**
      * Scales the point by a factor in X and Y.
+     *
      * @param factor The scaling factor.
      * @return A point scaled by the given factor.
      */
@@ -188,6 +191,9 @@ public class Point implements Serializable {
 
     /**
      * Scales the point by a factor in X and Y around a point.
+     *
+     * @param xf The factor in the X axis.
+     * @param yf The factor in the Y axis.
      * @param x The point to scale around X coordinate.
      * @param y The point to scale around Y coordinate.
      * @return A point scaled by the given factors around the given point.
@@ -200,7 +206,10 @@ public class Point implements Serializable {
     }
 
     /**
+     * @param xf The factor in the X axis.
+     * @param yf The factor in the Y axis.
      * @param point The point.
+     * @return A point scaled by the given factors around the given point.
      * @see #scale(float, float, int, int)
      */
     public Point scale(float xf, float yf, Point point) {

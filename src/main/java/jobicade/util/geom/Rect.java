@@ -25,8 +25,8 @@ public final class Rect implements Serializable {
     /**
      * Constructor for rectangles. Position defaults to zero.
      *
-     * @param width
-     * @param height
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
      * @see #Rect(int, int, int, int)
      */
     public Rect(int width, int height) {
@@ -155,6 +155,7 @@ public final class Rect implements Serializable {
 
     /**
      * @param padding The padding for all sides.
+     * @return A rectangle representing padding.
      * @see #createPadding(int, int, int, int)
      */
     public static Rect createPadding(int padding) { return new Rect(-padding, -padding, 2 * padding, 2 * padding); }
@@ -344,6 +345,7 @@ public final class Rect implements Serializable {
 
     /**
      * @param least The new top left coordinate.
+     * @return A near identical rectangle with the given top left coordinate.
      * @see #withLeast(int, int)
      */
     public Rect withLeast(Point least) { return new Rect(least.getX(), least.getY(), x + width - least.getX(), y + height - least.getY()); }
@@ -364,6 +366,7 @@ public final class Rect implements Serializable {
 
     /**
      * @param most The new bottom right coordinate.
+     * @return A near identical rectangle with the given bottom right coordinate.
      * @see #withMost(int, int)
      */
     public Rect withMost(Point most) { return new Rect(x, y, most.getX() - x, most.getY() - y); }
@@ -387,6 +390,7 @@ public final class Rect implements Serializable {
 
     /**
      * @param position The new top left position.
+     * @return A near identical rectangle with the given top left position.
      * @see #move(int, int)
      */
     public Rect move(Point position) { return new Rect(position.getX(), position.getY(), width, height); }
@@ -407,6 +411,7 @@ public final class Rect implements Serializable {
 
     /**
      * @param size The new size of the rectangle.
+     * @return A near identical rectangle with the given size.
      * @see #resize(int, int)
      */
     public Rect resize(Point size) { return new Rect(x, y, size.getX(), size.getY()); }
@@ -425,6 +430,7 @@ public final class Rect implements Serializable {
 
     /**
      * @param offset The offset.
+     * @return The result of translating this rectangle by X and Y.
      * @see #translate(int, int)
      */
     public Rect translate(Point offset) { return new Rect(this.x + offset.getX(), this.y + offset.getY(), width, height); }
@@ -452,6 +458,7 @@ public final class Rect implements Serializable {
 
     /**
      * @param offset The offset.
+     * @return The result of translating this rectangle by X and Y.
      * @see #untranslate(int, int)
      */
     public Rect untranslate(Point offset) { return new Rect(this.x - offset.getX(), this.y - offset.getY(), width, height); }
@@ -502,6 +509,7 @@ public final class Rect implements Serializable {
 
     /**
      * @param point The point.
+     * @return {@code true} if the point is inside this rectangle.
      * @see #contains(int, int)
      */
     public boolean contains(Point point) { return point.getX() >= x && point.getX() < x + width && point.getY() >= y && point.getY() < y + width; }

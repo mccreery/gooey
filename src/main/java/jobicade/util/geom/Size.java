@@ -14,11 +14,16 @@ public class Size extends Point {
     private static final Size ZERO = new Size();
 
     /**
+     * Default constructor for sizes.
      * @see Point#Point()
      */
     public Size() { super(); }
 
     /**
+     * Constructor for sizes.
+     *
+     * @param width The width of the size.
+     * @param height The height of the size.
      * @see Point#Point(int, int)
      */
     public Size(int width, int height) {
@@ -26,6 +31,9 @@ public class Size extends Point {
     }
 
     /**
+     * Copy/conversion constructor for sizes.
+     *
+     * @param point The point to copy.
      * @see Point#Point(Point)
      */
     public Size(Point point) {
@@ -33,6 +41,9 @@ public class Size extends Point {
     }
 
     /**
+     * Conversion constructor for sizes.
+     *
+     * @param resolution The resolution to convert.
      * @see Point#Point(ScaledResolution)
      */
     public Size(ScaledResolution resolution) {
@@ -40,7 +51,9 @@ public class Size extends Point {
     }
 
     /**
-     * Returns a size instead of a basic point.
+     * Returns a size with both X and Y equal to zero.
+     *
+     * @return A size with both X and Y equal to zero.
      * @see Point#zero()
      */
     public static Size zero() {
@@ -59,6 +72,9 @@ public class Size extends Point {
     }
 
     /**
+     * Getter for width.
+     *
+     * @return The width of this size. Same as "x".
      * @see #getX()
      */
     public int getWidth() {
@@ -66,6 +82,9 @@ public class Size extends Point {
     }
 
     /**
+     * Getter for height.
+     *
+     * @return The height of this size. Same as "y".
      * @see #getY()
      */
     public int getHeight() {
@@ -73,6 +92,10 @@ public class Size extends Point {
     }
 
     /**
+     * Returns a size with a new width. Height does not change.
+     *
+     * @param width The new width.
+     * @return A size with a new width and the existing height.
      * @see #withX(int)
      */
     public Point withWidth(int width) {
@@ -80,6 +103,10 @@ public class Size extends Point {
     }
 
     /**
+     * Returns a size with a new height. Width does not change.
+     *
+     * @param height The new height.
+     * @return A size with a new height and the existing width.
      * @see #withY(int)
      */
     public Point withHeight(int height) {
