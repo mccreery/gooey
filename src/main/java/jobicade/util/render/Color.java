@@ -60,4 +60,9 @@ public class Color {
 
 		return new Color(MathHelper.hsvToRGB(hue, saturation, value)).withAlpha(255);
 	}
+
+	public static Color getProgressColor(float progress) {
+		progress = MathHelper.clamp(progress, 0, 1);
+		return Color.fromHSV(progress / 3f, 1, 1);
+	}
 }
