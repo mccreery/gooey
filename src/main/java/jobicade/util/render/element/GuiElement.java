@@ -1,18 +1,18 @@
 package jobicade.util.render.element;
 
-import jobicade.util.geom.Rectangle;
+import jobicade.util.geom.Rect;
 import jobicade.util.geom.Point;
 
 public abstract class GuiElement {
 	private final Point size;
-	private Rectangle bounds;
+	private Rect bounds;
 
 	public GuiElement(Point size) {
 		this.size = size;
-		this.bounds = Rectangle.fromPositionSize(Point.zero(), size);
+		this.bounds = Rect.fromPositionSize(Point.zero(), size);
 	}
 
-	public GuiElement(Rectangle bounds) {
+	public GuiElement(Rect bounds) {
 		this.size = bounds.getSize();
 		this.bounds = bounds;
 	}
@@ -21,7 +21,7 @@ public abstract class GuiElement {
 		return size;
 	}
 
-	public Rectangle getBounds() {
+	public Rect getBounds() {
 		return bounds;
 	}
 

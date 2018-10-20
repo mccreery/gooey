@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 import org.lwjgl.opengl.GL11;
 
-import jobicade.util.geom.Rectangle;
+import jobicade.util.geom.Rect;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
 import jobicade.util.render.Color;
@@ -18,10 +18,10 @@ class Quad extends GuiElement {
     private static final float TEX_SCALE = 1f / 256f;
 
     private final double zLevel;
-    private final Rectangle texture;
+    private final Rect texture;
     private final Function<Direction, Color> colorFunction;
 
-    public Quad(Rectangle bounds, double zLevel, Rectangle texture, Function<Direction, Color> colorFunction) {
+    Quad(Rect bounds, double zLevel, Rect texture, Function<Direction, Color> colorFunction) {
         super(bounds);
 
         this.zLevel = zLevel;

@@ -11,18 +11,18 @@ import java.io.Serializable;
  *
  * <p>Use {@link #normalize()} to ensure rectangles are normal.
  */
-public final class Rectangle implements Serializable {
+public final class Rect implements Serializable {
     private static final long serialVersionUID = 1L;
-    private static final Rectangle EMPTY = new Rectangle(0, 0, 0, 0);
+    private static final Rect EMPTY = new Rect(0, 0, 0, 0);
 
     private final int x, y, width, height;
 
     /**
      * Default constructor for rectangles. All values will be zero.
      */
-    public Rectangle() { this(0, 0, 0, 0); }
+    public Rect() { this(0, 0, 0, 0); }
 
-    private Rectangle(int x, int y, int width, int height) {
+    private Rect(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -33,7 +33,7 @@ public final class Rectangle implements Serializable {
      * Copy constructor for rectangles.
      * @param rect The original rectangle to copy.
      */
-    public Rectangle(Rectangle rect) {
+    public Rect(Rect rect) {
         this.x = rect.x;
         this.y = rect.y;
         this.width = rect.width;
@@ -48,8 +48,8 @@ public final class Rectangle implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Rectangle) {
-            Rectangle rectangle = (Rectangle)obj;
+        if(obj instanceof Rect) {
+            Rect rectangle = (Rect)obj;
             return x == rectangle.x && y == rectangle.y &&
                 width == rectangle.width && height == rectangle.height;
         }
@@ -85,7 +85,7 @@ public final class Rectangle implements Serializable {
      * as there may be a performance benefit.
      * @return An empty rectangle.
      */
-    public static Rectangle empty() { return EMPTY; }
+    public static Rect empty() { return EMPTY; }
 
     /**
      * Returns a rectangle with the given top left position and size.
@@ -96,7 +96,7 @@ public final class Rectangle implements Serializable {
      * @param height The height of the rectangle.
      * @return A rectangle with the given top left position and size.
      */
-    public static Rectangle fromPositionSize(int x, int y, int width, int height) { return new Rectangle(x, y, width, height); }
+    public static Rect fromPositionSize(int x, int y, int width, int height) { return new Rect(x, y, width, height); }
 
     /**
      * Returns a rectangle with the given top left position and size.
@@ -105,7 +105,7 @@ public final class Rectangle implements Serializable {
      * @param size The size of the rectangle.
      * @return A rectangle with the given top left position and size.
      */
-    public static Rectangle fromPositionSize(Point position, Point size) { return new Rectangle(position.getX(), position.getY(), size.getX(), size.getY()); }
+    public static Rect fromPositionSize(Point position, Point size) { return new Rect(position.getX(), position.getY(), size.getX(), size.getY()); }
 
     /**
      * Returns a rectangle with the given top left and bottom right coordinates.
@@ -116,7 +116,7 @@ public final class Rectangle implements Serializable {
      * @param bottom The bottommost Y coordinate of the rectangle.
      * @return A rectangle with the given top left and bottom right coordinates.
      */
-    public static Rectangle fromLeastMost(int left, int top, int right, int bottom) { return new Rectangle(left, top, right - left, bottom - top); }
+    public static Rect fromLeastMost(int left, int top, int right, int bottom) { return new Rect(left, top, right - left, bottom - top); }
 
     /**
      * Returns a rectangle with the given top left and bottom right coordinates.
@@ -125,7 +125,7 @@ public final class Rectangle implements Serializable {
      * @param most The bottom right position of the rectangle.
      * @return A rectangle with the given top left and bottom right coordinates.
      */
-    public static Rectangle fromLeastMost(Point least, Point most) { return new Rectangle(least.getX(), least.getY(), most.getX() - least.getX(), most.getY() - least.getY()); }
+    public static Rect fromLeastMost(Point least, Point most) { return new Rect(least.getX(), least.getY(), most.getX() - least.getX(), most.getY() - least.getY()); }
 
     /**
      * Returns a rectangle representing padding with the origin zero. The
@@ -137,15 +137,15 @@ public final class Rectangle implements Serializable {
      * @param right The right padding.
      * @param bottom The bottom padding.
      * @return A rectangle representing padding.
-     * @see #grow(Rectangle)
+     * @see #grow(Rect)
      */
-    public static Rectangle createPadding(int left, int top, int right, int bottom) { return new Rectangle(-left, -top, left + right, top + bottom); }
+    public static Rect createPadding(int left, int top, int right, int bottom) { return new Rect(-left, -top, left + right, top + bottom); }
 
     /**
      * @param padding The padding for all sides.
      * @see #createPadding(int, int, int, int)
      */
-    public static Rectangle createPadding(int padding) { return new Rectangle(-padding, -padding, 2 * padding, 2 * padding); }
+    public static Rect createPadding(int padding) { return new Rect(-padding, -padding, 2 * padding, 2 * padding); }
 
     // Getters and setters
 
@@ -204,7 +204,7 @@ public final class Rectangle implements Serializable {
      * @param x The new leftmost X coordinate.
      * @return A near identical rectangle with the given leftmost X coordinate.
      */
-    public Rectangle withX(int x) { return new Rectangle(x, y, width, height); }
+    public Rect withX(int x) { return new Rect(x, y, width, height); }
 
     /**
      * Returns a near identical rectangle with the given leftmost Y coordinate.
@@ -217,7 +217,7 @@ public final class Rectangle implements Serializable {
      * @param y The new leftmost Y coordinate.
      * @return A near identical rectangle with the given leftmost Y coordinate.
      */
-    public Rectangle withY(int y) { return new Rectangle(x, y, width, height); }
+    public Rect withY(int y) { return new Rect(x, y, width, height); }
 
     /**
      * Returns a near identical rectangle with the given width. The top left
@@ -229,7 +229,7 @@ public final class Rectangle implements Serializable {
      * @param width The new width.
      * @return A near identical rectangle with the given width.
      */
-    public Rectangle withWidth(int width) { return new Rectangle(x, y, width, height); }
+    public Rect withWidth(int width) { return new Rect(x, y, width, height); }
 
     /**
      * Returns a near identical rectangle with the given height. The top left
@@ -241,7 +241,7 @@ public final class Rectangle implements Serializable {
      * @param height The new height.
      * @return A near identical rectangle with the given height.
      */
-    public Rectangle withHeight(int height) { return new Rectangle(x, y, width, height); }
+    public Rect withHeight(int height) { return new Rect(x, y, width, height); }
 
     /**
      * Returns a near identical rectangle with the given leftmost X coordinate.
@@ -254,7 +254,7 @@ public final class Rectangle implements Serializable {
      * @param left The new leftmost X coordinate
      * @return A near copy of this rectangle with the given leftmost X coordinate
      */
-    public Rectangle withLeft(int left) { return new Rectangle(left, y, x + width - left, height); }
+    public Rect withLeft(int left) { return new Rect(left, y, x + width - left, height); }
 
     /**
      * Returns a near identical rectangle with the given topmost Y coordinate.
@@ -267,7 +267,7 @@ public final class Rectangle implements Serializable {
      * @param top The new topmost Y coordinate
      * @return A near copy of this rectangle with the given topmost Y coordinate
      */
-    public Rectangle withTop(int top) { return new Rectangle(x, top, width, y + height - top); }
+    public Rect withTop(int top) { return new Rect(x, top, width, y + height - top); }
 
     /**
      * Returns a near identical rectangle with the given rightmost X coordinate.
@@ -279,7 +279,7 @@ public final class Rectangle implements Serializable {
      * @param right The new rightmost X coordinate.
      * @return A near identical rectangle with the given rightmost X coordinate.
      */
-    public Rectangle withRight(int right) { return new Rectangle(x, y, right - x, height); }
+    public Rect withRight(int right) { return new Rect(x, y, right - x, height); }
 
     /**
      * Returns a near identical rectangle with the given bottommost Y coordinate.
@@ -291,7 +291,7 @@ public final class Rectangle implements Serializable {
      * @param bottom The new bottommost Y coordinate.
      * @return A near identical rectangle with the given bottommost Y coordinate.
      */
-    public Rectangle withBottom(int bottom) { return new Rectangle(x, y, width, bottom - y); }
+    public Rect withBottom(int bottom) { return new Rect(x, y, width, bottom - y); }
 
     /**
      * @return The top left position of the rectangle. Same as "least".
@@ -328,13 +328,13 @@ public final class Rectangle implements Serializable {
      * @param top The new topmost Y coordinate.
      * @return A near identical rectangle with the given top left coordinate.
      */
-    public Rectangle withLeast(int left, int top) { return new Rectangle(left, top, x + width - left, y + height - top); }
+    public Rect withLeast(int left, int top) { return new Rect(left, top, x + width - left, y + height - top); }
 
     /**
      * @param least The new top left coordinate.
      * @see #withLeast(int, int)
      */
-    public Rectangle withLeast(Point least) { return new Rectangle(least.getX(), least.getY(), x + width - least.getX(), y + height - least.getY()); }
+    public Rect withLeast(Point least) { return new Rect(least.getX(), least.getY(), x + width - least.getX(), y + height - least.getY()); }
 
     /**
      * Returns a near identical rectangle with the given bottom right coordinate.
@@ -348,13 +348,13 @@ public final class Rectangle implements Serializable {
      * @param bottom The new bottommost Y coordinate.
      * @return A near identical rectangle with the given bottom right coordinate.
      */
-    public Rectangle withMost(int right, int bottom) { return new Rectangle(x, y, right - x, bottom - y); }
+    public Rect withMost(int right, int bottom) { return new Rect(x, y, right - x, bottom - y); }
 
     /**
      * @param most The new bottom right coordinate.
      * @see #withMost(int, int)
      */
-    public Rectangle withMost(Point most) { return new Rectangle(x, y, most.getX() - x, most.getY() - y); }
+    public Rect withMost(Point most) { return new Rect(x, y, most.getX() - x, most.getY() - y); }
 
     // More common setters
 
@@ -371,13 +371,13 @@ public final class Rectangle implements Serializable {
      * @param y The new topmost Y position.
      * @return A near identical rectangle with the given top left position.
      */
-    public Rectangle move(int x, int y) { return new Rectangle(x, y, width, height); }
+    public Rect move(int x, int y) { return new Rect(x, y, width, height); }
 
     /**
      * @param position The new top left position.
      * @see #move(int, int)
      */
-    public Rectangle move(Point position) { return new Rectangle(position.getX(), position.getY(), width, height); }
+    public Rect move(Point position) { return new Rect(position.getX(), position.getY(), width, height); }
 
     /***
      * Returns a near identical rectangle with the given size. The top left
@@ -391,13 +391,13 @@ public final class Rectangle implements Serializable {
      * @param height The new height of the rectangle.
      * @return A near identical rectangle with the given size.
      */
-    public Rectangle resize(int width, int height) { return new Rectangle(x, y, width, height); }
+    public Rect resize(int width, int height) { return new Rect(x, y, width, height); }
 
     /**
      * @param size The new size of the rectangle.
      * @see #resize(int, int)
      */
-    public Rectangle resize(Point size) { return new Rectangle(x, y, size.getX(), size.getY()); }
+    public Rect resize(Point size) { return new Rect(x, y, size.getX(), size.getY()); }
 
     // Common operations
 
@@ -409,13 +409,13 @@ public final class Rectangle implements Serializable {
      * @param y The Y coordinate offset.
      * @return The result of translating this rectangle by X and Y.
      */
-    public Rectangle translate(int x, int y) { return new Rectangle(this.x + x, this.y + y, width, height); }
+    public Rect translate(int x, int y) { return new Rect(this.x + x, this.y + y, width, height); }
 
     /**
      * @param offset The offset.
      * @see #translate(int, int)
      */
-    public Rectangle translate(Point offset) { return new Rectangle(this.x + offset.getX(), this.y + offset.getY(), width, height); }
+    public Rect translate(Point offset) { return new Rect(this.x + offset.getX(), this.y + offset.getY(), width, height); }
 
     /**
      * Returns the result of translating this rectangle in the given direction
@@ -427,7 +427,7 @@ public final class Rectangle implements Serializable {
      * @return The result of translating this rectangle in the given direction
      * by the given amount.
      */
-    public Rectangle translate(Direction direction, int x) { return translate(direction.getUnit().scale(x, x)); }
+    public Rect translate(Direction direction, int x) { return translate(direction.getUnit().scale(x, x)); }
 
     /**
      * As {@link #translate(int, int)}, but inverts the translation.
@@ -436,13 +436,13 @@ public final class Rectangle implements Serializable {
      * @param y The Y coordinate offset.
      * @return The result of translating this rectangle by X and Y.
      */
-    public Rectangle untranslate(int x, int y) { return new Rectangle(this.x - x, this.y - y, width, height); }
+    public Rect untranslate(int x, int y) { return new Rect(this.x - x, this.y - y, width, height); }
 
     /**
      * @param offset The offset.
      * @see #untranslate(int, int)
      */
-    public Rectangle untranslate(Point offset) { return new Rectangle(this.x - offset.getX(), this.y - offset.getY(), width, height); }
+    public Rect untranslate(Point offset) { return new Rect(this.x - offset.getX(), this.y - offset.getY(), width, height); }
 
     /**
      * Adds the given padding distance to each side of the rectangle.
@@ -453,7 +453,7 @@ public final class Rectangle implements Serializable {
      * @param bottom The bottom padding.
      * @return The result of padding the rectangle by the given distances.
      */
-    public Rectangle grow(int left, int top, int right, int bottom) { return new Rectangle(this.x - left, this.y - top, this.width + left + right, this.height + top + bottom); }
+    public Rect grow(int left, int top, int right, int bottom) { return new Rect(this.x - left, this.y - top, this.width + left + right, this.height + top + bottom); }
 
     /**
      * Adds each pair of corresponding coordinates between the two rectangles.
@@ -465,7 +465,7 @@ public final class Rectangle implements Serializable {
      * between both rectangles.
      * @see #createPadding(int, int, int, int)
      */
-    public Rectangle grow(Rectangle padding) { return new Rectangle(this.x + padding.x, this.y + padding.y, this.width + padding.width, this.height + padding.height); }
+    public Rect grow(Rect padding) { return new Rect(this.x + padding.x, this.y + padding.y, this.width + padding.width, this.height + padding.height); }
 
     /**
      * Adds a constant padding distance to each side of the rectangle.
@@ -473,7 +473,7 @@ public final class Rectangle implements Serializable {
      * @param padding The padding distance.
      * @return The result of padding the rectangle by the distance.
      */
-    public Rectangle grow(int padding) { return new Rectangle(this.x - padding, this.y - padding, this.width + padding * 2, this.height + padding * 2); }
+    public Rect grow(int padding) { return new Rect(this.x - padding, this.y - padding, this.width + padding * 2, this.height + padding * 2); }
 
     // Boolean operations
 
@@ -507,7 +507,7 @@ public final class Rectangle implements Serializable {
     /**
      * Tests whether the rectangle is normal. A normal rectangle has a strictly
      * positive width and height. Denormal rectangles behave differently for
-     * certain operations, see {@link Rectangle} for details.
+     * certain operations, see {@link Rect} for details.
      *
      * @return {@code true} if the rectangle is normal.
      */
@@ -515,11 +515,11 @@ public final class Rectangle implements Serializable {
 
     /**
      * Returns an equivalent rectangle that is normal. The result must behave
-     * normally for all operations. See {@link Rectangle} for details.
+     * normally for all operations. See {@link Rect} for details.
      *
      * @return An equivalent rectangle that is normal.
      */
-    public Rectangle normalize() {
+    public Rect normalize() {
         if(isNormal()) return this;
         int x = this.x, y = this.y, width = this.width, height = this.height;
 
@@ -531,45 +531,45 @@ public final class Rectangle implements Serializable {
             y += height;
             height = -height;
         }
-        return new Rectangle(x, y, width, height);
+        return new Rect(x, y, width, height);
     }
 
     /**
      * Returns the result of the union operation over two rectangles. The result
      * must contain at least all points in either rectangle.
      *
-     * <p>This function behaves like {@link #intersection(Rectangle)} on
+     * <p>This function behaves like {@link #intersection(Rect)} on
      * denormal rectangles.
      *
      * @param rect The other rectangle to union with.
      * @return The result of the union operation over two rectangles.
      */
-    public Rectangle union(Rectangle rect) {
+    public Rect union(Rect rect) {
         int x = Math.min(this.x, rect.x);
         int y = Math.min(this.y, rect.y);
         int width = Math.max(this.x + this.width, rect.x + rect.width) - x;
         int height = Math.max(this.y + this.height, rect.x + rect.height) - y;
 
-        return new Rectangle(x, y, width, height);
+        return new Rect(x, y, width, height);
     }
 
     /**
      * Returns the result of the intersection operation over two rectangles.
      * The result must contain exactly all points in both rectangles.
      *
-     * <p>This function behaves like {@link #intersection(Rectangle)} on
+     * <p>This function behaves like {@link #intersection(Rect)} on
      * denormal rectangles.
      *
      * @param rect The other rectangle to union with.
      * @return The result of the union operation over two rectangles.
      */
-    public Rectangle intersection(Rectangle rect) {
+    public Rect intersection(Rect rect) {
         int x = Math.max(this.x, rect.x);
         int y = Math.max(this.y, rect.y);
         int width = Math.min(this.x + this.width, rect.x + rect.width) - x;
         int height = Math.min(this.y + this.height, rect.y + rect.height) - y;
 
-        return new Rectangle(x, y, width, height);
+        return new Rect(x, y, width, height);
     }
 
     // Direction functions
@@ -598,7 +598,7 @@ public final class Rectangle implements Serializable {
      * @param alignment The anchor direction within the rectangle.
      * @return The result of aligning the anchor direction to the anchor point.
      */
-    public Rectangle align(Point anchor, Direction alignment) {
+    public Rect align(Point anchor, Direction alignment) {
         return move(anchor.sub(move(Point.zero()).getAnchor(alignment)));
     }
 
@@ -617,7 +617,7 @@ public final class Rectangle implements Serializable {
      * rectangle to the anchor point on the container.
      * @return The rectangle anchored inside or outside another rectangle.
      */
-    public Rectangle anchor(Rectangle container, Direction direction, boolean outside) {
+    public Rect anchor(Rect container, Direction direction, boolean outside) {
         return align(container.getAnchor(direction), outside ? direction.mirror() : direction);
     }
 }

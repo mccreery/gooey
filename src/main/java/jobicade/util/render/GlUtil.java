@@ -2,7 +2,7 @@ package jobicade.util.render;
 
 import static jobicade.util.Constants.MC;
 
-import jobicade.util.geom.Rectangle;
+import jobicade.util.geom.Rect;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
 import jobicade.util.render.mode.GlMode;
@@ -50,7 +50,7 @@ public final class GlUtil {
 	}
 
 	/** Renders the item with hotbar animations */
-	public static void renderHotbarItem(Rectangle bounds, ItemStack stack, float partialTicks) {
+	public static void renderHotbarItem(Rect bounds, ItemStack stack, float partialTicks) {
 		if(stack.isEmpty()) return;
 		float animationTicks = stack.getAnimationsToGo() - partialTicks;
 
@@ -75,13 +75,13 @@ public final class GlUtil {
 	}
 
 	/** @see GuiUtils#drawHoveringText(ItemStack, List, int, int, int, int, int, net.minecraft.client.gui.FontRenderer) */
-	public static void drawTooltipBox(Rectangle bounds, double zLevel) {
+	public static void drawTooltipBox(Rect bounds, double zLevel) {
 		Color borderStart = new Color(80, 80, 0, 255);
 		Color borderEnd = new Color(80, 40, 40, 127);
 		Color background = new Color(183, 16, 0, 16);
 
 		QuadBuilder builder = new QuadBuilder().setZLevel(zLevel).setColor(background);
-		Rectangle thin = bounds.grow(-1, 0, -1, 0).withHeight(1);
+		Rect thin = bounds.grow(-1, 0, -1, 0).withHeight(1);
 
 		// Cross shape background
 		builder.setBounds(thin).build().render();
@@ -142,8 +142,8 @@ public final class GlUtil {
 	/** @param origin The anchor point
 	 * @param alignment The alignment around {@code origin}
 	 * @see net.minecraft.client.gui.FontRenderer#drawStringWithShadow(String, float, float, int) */
-	public static Rectangle drawString(String string, Point origin, Direction alignment, int color) {
-		Rectangle bounds = Rectangle.fromPositionSize(Point.zero(), getStringSize(string)).align(origin, alignment);
+	public static Rect drawString(String string, Point origin, Direction alignment, int color) {
+		Rect bounds = Rect.fromPositionSize(Point.zero(), getStringSize(string)).align(origin, alignment);
 		MC.fontRenderer.drawStringWithShadow(string, bounds.getX(), bounds.getY(), color);
 
 		return bounds;

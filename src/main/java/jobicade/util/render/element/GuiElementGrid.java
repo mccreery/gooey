@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-import jobicade.util.geom.Rectangle;
+import jobicade.util.geom.Rect;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
 
@@ -32,7 +32,7 @@ class GuiElementGrid extends GuiElement {
 
 	@Override
 	public void render() {
-		Rectangle cell = Rectangle.fromPositionSize(Point.zero(), cellSize)
+		Rect cell = Rect.fromPositionSize(Point.zero(), cellSize)
 			.anchor(getBounds(), flowDirection.mirror(), false);
 
 		Point rowOffset = cellPitch.scale(flowDirection.withCol(1).getUnit());
@@ -45,7 +45,7 @@ class GuiElementGrid extends GuiElement {
 		}
 
 		for(int i = 0; i < source.size(); ) {
-			Rectangle rowStart = cell;
+			Rect rowStart = cell;
 
 			for(int j = 0; i < source.size() && j < columns; i++, j++) {
 				GuiElement element = source.get(i);

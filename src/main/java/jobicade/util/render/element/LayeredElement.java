@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableList;
 
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
-import jobicade.util.geom.Rectangle;
+import jobicade.util.geom.Rect;
 
 public class LayeredElement extends GuiElement {
     private final List<GuiElement> source;
@@ -31,7 +31,7 @@ public class LayeredElement extends GuiElement {
 
     @Override
     public void render() {
-        Rectangle bounds = getBounds();
+        Rect bounds = getBounds();
 
         for(GuiElement element : source) {
             element.setPosition(element.getBounds()

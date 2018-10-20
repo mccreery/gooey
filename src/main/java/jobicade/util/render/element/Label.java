@@ -1,6 +1,6 @@
 package jobicade.util.render.element;
 
-import jobicade.util.geom.Rectangle;
+import jobicade.util.geom.Rect;
 import jobicade.util.geom.Point;
 import jobicade.util.render.Color;
 import net.minecraft.client.Minecraft;
@@ -36,7 +36,7 @@ public class Label extends GuiElement {
 
     @Override
     public void render() {
-        Rectangle bounds = getBounds();
+        Rect bounds = getBounds();
         Minecraft.getMinecraft().fontRenderer.drawString(text, bounds.getX(), bounds.getY(), color.getPacked(), dropShadow);
     }
 }
