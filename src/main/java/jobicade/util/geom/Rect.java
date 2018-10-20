@@ -314,7 +314,7 @@ public final class Rect implements Serializable {
     /**
      * @return The size of the rectangle.
      */
-    public Point getSize() { return new Point(width, height); }
+    public Size getSize() { return new Size(width, height); }
 
     /**
      * @return The top left coordinate of the rectangle. Same as "position".
