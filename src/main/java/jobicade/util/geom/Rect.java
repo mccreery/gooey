@@ -22,11 +22,63 @@ public final class Rect implements Serializable {
      */
     public Rect() { this(0, 0, 0, 0); }
 
-    private Rect(int x, int y, int width, int height) {
+    /**
+     * Constructor for rectangles. Position defaults to zero.
+     *
+     * @param width
+     * @param height
+     * @see #Rect(int, int, int, int)
+     */
+    public Rect(int width, int height) {
+        this(0, 0, width, height);
+    }
+
+    /**
+     * Constructor for rectangles.
+     *
+     * @param x The leftmost X coordinate. Same as "left".
+     * @param y The topmost Y coordinate. Same as "top".
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
+     */
+    public Rect(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+    }
+
+    /**
+     * Constructor for rectangles. Position defaults to zero.
+     *
+     * @param size The size of the rectangle.
+     * @see #Rect(Point, Size)
+     */
+    public Rect(Point size) {
+        this(Point.zero(), size);
+    }
+
+    /**
+     * Constructor for rectangles.
+     *
+     * @param position The top left position. Same as "least".
+     * @param size The size of the rectangle.
+     */
+    public Rect(Point position, Size size) {
+        this.x = position.getX();
+        this.y = position.getY();
+        this.width = size.getWidth();
+        this.height = size.getHeight();
+    }
+
+    /**
+     * Constructor for rectangles.
+     *
+     * @param least The top left coordinate. Same as "position".
+     * @param most The bottom right coordinate.
+     */
+    public Rect(Point least, Point most) {
+        this(least, most.sub(least));
     }
 
     /**
@@ -86,46 +138,6 @@ public final class Rect implements Serializable {
      * @return An empty rectangle.
      */
     public static Rect empty() { return EMPTY; }
-
-    /**
-     * Returns a rectangle with the given top left position and size.
-     *
-     * @param x The leftmost X coordinate of the rectangle. Same as "left".
-     * @param y The topmost Y coordinate of the rectangle. Same as "top".
-     * @param width The width of the rectangle.
-     * @param height The height of the rectangle.
-     * @return A rectangle with the given top left position and size.
-     */
-    public static Rect fromPositionSize(int x, int y, int width, int height) { return new Rect(x, y, width, height); }
-
-    /**
-     * Returns a rectangle with the given top left position and size.
-     *
-     * @param position The top left position of the rectangle.
-     * @param size The size of the rectangle.
-     * @return A rectangle with the given top left position and size.
-     */
-    public static Rect fromPositionSize(Point position, Point size) { return new Rect(position.getX(), position.getY(), size.getX(), size.getY()); }
-
-    /**
-     * Returns a rectangle with the given top left and bottom right coordinates.
-     *
-     * @param left The leftmost X coordinate of the rectangle. Same as "x".
-     * @param top The topmost Y coordinate of the rectangle. Same as "y".
-     * @param right The rightmost X coordinate of the rectangle.
-     * @param bottom The bottommost Y coordinate of the rectangle.
-     * @return A rectangle with the given top left and bottom right coordinates.
-     */
-    public static Rect fromLeastMost(int left, int top, int right, int bottom) { return new Rect(left, top, right - left, bottom - top); }
-
-    /**
-     * Returns a rectangle with the given top left and bottom right coordinates.
-     *
-     * @param least The top left position of the rectangle.
-     * @param most The bottom right position of the rectangle.
-     * @return A rectangle with the given top left and bottom right coordinates.
-     */
-    public static Rect fromLeastMost(Point least, Point most) { return new Rect(least.getX(), least.getY(), most.getX() - least.getX(), most.getY() - least.getY()); }
 
     /**
      * Returns a rectangle representing padding with the origin zero. The

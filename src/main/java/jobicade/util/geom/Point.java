@@ -8,7 +8,7 @@ import net.minecraft.client.gui.ScaledResolution;
  * Represents an immutable 2D point in integer precision, typically in screen
  * pixel space.
  */
-public final class Point implements Serializable {
+public class Point implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Point ZERO = new Point();
 
@@ -153,13 +153,13 @@ public final class Point implements Serializable {
      * @param y The Y coordinate of the other point.
      * @return The difference between this point and the other point.
      */
-    public Point sub(int x, int y) { return new Point(this.x - x, this.y - y); }
+    public Size sub(int x, int y) { return new Size(this.x - x, this.y - y); }
 
     /**
      * @param point The other point
      * @see #sub(int, int)
      */
-    public Point sub(Point point) { return new Point(x - point.x, y - point.y); }
+    public Size sub(Point point) { return new Size(x - point.x, y - point.y); }
 
     /**
      * Returns a point with both X and Y negated.
