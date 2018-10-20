@@ -1,14 +1,13 @@
 package jobicade.util.render.mode;
 
-import static jobicade.util.Constants.ICONS;
-import static jobicade.util.Constants.MC;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 import com.google.common.util.concurrent.Runnables;
 
 import jobicade.util.render.Color;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
@@ -44,7 +43,7 @@ public class GlMode {
 			GlStateManager.enableBlend();
 			GlStateManager.disableDepth();
 			GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
-			MC.getTextureManager().bindTexture(ICONS);
+			Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.ICONS);
 		}
 
 		@Override
@@ -68,7 +67,7 @@ public class GlMode {
 	public static final GlMode INVERT = new GlMode() {
 		@Override
 		public void begin() {
-			MC.getTextureManager().bindTexture(ICONS);
+			Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.ICONS);
 			GlStateManager.tryBlendFuncSeparate(SourceFactor.ONE_MINUS_DST_COLOR, DestFactor.ONE_MINUS_SRC_COLOR, SourceFactor.ONE, DestFactor.ZERO);
 		}
 

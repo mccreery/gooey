@@ -1,8 +1,7 @@
 package jobicade.util.render.mode;
 
-import static jobicade.util.Constants.ICONS;
-import static jobicade.util.Constants.MC;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 
 public class TextureMode extends GlMode {
@@ -14,11 +13,11 @@ public class TextureMode extends GlMode {
 
 	@Override
 	public void begin() {
-		MC.getTextureManager().bindTexture(texture);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 	}
 
 	@Override
 	public void end() {
-		MC.getTextureManager().bindTexture(ICONS);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.ICONS);
 	}
 }

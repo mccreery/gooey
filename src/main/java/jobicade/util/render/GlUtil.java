@@ -1,17 +1,18 @@
 package jobicade.util.render;
 
-import static jobicade.util.Constants.MC;
-
 import jobicade.util.geom.Rect;
 import jobicade.util.geom.Direction;
 import jobicade.util.geom.Point;
 import jobicade.util.render.mode.GlMode;
 import jobicade.util.render.element.QuadBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 
 public final class GlUtil {
+	private static final Minecraft MC = Minecraft.getMinecraft();
+
 	private GlUtil() {}
 
 	/** All axes default to {@code scale}
