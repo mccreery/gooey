@@ -10,26 +10,18 @@ public class LayoutManager {
 	public static final int SPACER = 5;
 
 	private final Map<Direction, Integer> corners = new HashMap<Direction, Integer>();
-	private ScaledResolution scaledResolution;
-	private Point resolution;
 	private Rect screen;
 
 	public void reset(ScaledResolution scaledResolution) {
 		reset(new Point(scaledResolution));
-		this.scaledResolution = scaledResolution;
 	}
 
 	public void reset(Point resolution) {
-		this.resolution = resolution;
-		screen = Rect.fromPositionSize(Point.zero(), this.resolution);
+		this.screen = new Rect(resolution);
 		corners.clear();
 
 		// Compatibility with bars from other mods
 		GuiIngameForge.left_height = GuiIngameForge.right_height = SPACER + 9;
-	}
-
-	public ScaledResolution getScaledResolution() {
-		return scaledResolution;
 	}
 
 	public Rect getScreen() {
