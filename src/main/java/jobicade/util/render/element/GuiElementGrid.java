@@ -32,8 +32,7 @@ class GuiElementGrid extends GuiElement {
 
 	@Override
 	public void render() {
-		Rect cell = Rect.fromPositionSize(Point.zero(), cellSize)
-			.anchor(getBounds(), flowDirection.mirror(), false);
+		Rect cell = new Rect(cellSize).anchor(getBounds(), flowDirection.mirror(), false);
 
 		Point rowOffset = cellPitch.scale(flowDirection.withCol(1).getUnit());
 		Point colOffset = cellPitch.scale(flowDirection.withRow(1).getUnit());

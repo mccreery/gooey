@@ -143,7 +143,7 @@ public final class GlUtil {
 	 * @param alignment The alignment around {@code origin}
 	 * @see net.minecraft.client.gui.FontRenderer#drawStringWithShadow(String, float, float, int) */
 	public static Rect drawString(String string, Point origin, Direction alignment, int color) {
-		Rect bounds = Rect.fromPositionSize(Point.zero(), getStringSize(string)).align(origin, alignment);
+		Rect bounds = new Rect(getStringSize(string)).align(origin, alignment);
 		MC.fontRenderer.drawStringWithShadow(string, bounds.getX(), bounds.getY(), color);
 
 		return bounds;

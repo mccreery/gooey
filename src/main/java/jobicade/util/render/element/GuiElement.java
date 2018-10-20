@@ -9,7 +9,7 @@ public abstract class GuiElement {
 
 	public GuiElement(Point size) {
 		this.size = size;
-		this.bounds = Rect.fromPositionSize(Point.zero(), size);
+		this.bounds = new Rect(size);
 	}
 
 	public GuiElement(Rect bounds) {
