@@ -8,7 +8,6 @@ import jobicade.util.geom.Point;
 import jobicade.util.render.mode.GlMode;
 import jobicade.util.render.element.QuadBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 
@@ -40,9 +39,9 @@ public final class GlUtil {
 
 	/** Renders {@code stack} to the GUI, and reverts lighting side effects
 	 *
-	 * @see RenderHelper#enableGUIStandardItemLighting()
+	 * @see net.minecraft.client.renderer.RenderHelper#enableGUIStandardItemLighting()
 	 * @see net.minecraft.client.renderer.RenderItem#renderItemAndEffectIntoGUI(ItemStack, int, int)
-	 * @see RenderHelper#disableStandardItemLighting() */
+	 * @see net.minecraft.client.renderer.RenderHelper#disableStandardItemLighting() */
 	public static void renderSingleItem(ItemStack stack, int x, int y) {
 		GlMode.push(GlMode.ITEM);
 		MC.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
@@ -74,7 +73,7 @@ public final class GlUtil {
 		GlMode.pop();
 	}
 
-	/** @see GuiUtils#drawHoveringText(ItemStack, List, int, int, int, int, int, net.minecraft.client.gui.FontRenderer) */
+	/** @see net.minecraftforge.fml.client.config.GuiUtils#drawHoveringText(ItemStack, java.util.List, int, int, int, int, int, net.minecraft.client.gui.FontRenderer) */
 	public static void drawTooltipBox(Rect bounds, double zLevel) {
 		Color borderStart = new Color(80, 80, 0, 255);
 		Color borderEnd = new Color(80, 40, 40, 127);
