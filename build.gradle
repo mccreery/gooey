@@ -43,6 +43,7 @@ processResources {
     }
 
     javadoc {
-        destinationDir = new File("docs")
+        destinationDir = file("docs")
+        options.addBooleanOption('notimestamp', true)
     }
 }
