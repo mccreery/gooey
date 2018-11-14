@@ -9,9 +9,9 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "0.1-alpha"
+version = "0.1-alpha-universal"
 group = "jobicade.util" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "jobicommons"
+archivesBaseName = "gooey-1.12.2"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {

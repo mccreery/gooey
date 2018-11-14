@@ -1,0 +1,7 @@
+[{
+    "modid": "gooey",
+    "name": "Gooey",
+    "description": "A library for GUI utility functions.",
+    "version": "${version}",
+    "mcversion": "${mcversion}"
+}]
