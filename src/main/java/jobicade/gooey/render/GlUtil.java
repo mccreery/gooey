@@ -1,10 +1,10 @@
-package jobicade.util.render;
+package jobicade.gooey.render;
 
-import jobicade.util.geom.Rect;
-import jobicade.util.geom.Direction;
-import jobicade.util.geom.Point;
-import jobicade.util.render.mode.GlMode;
-import jobicade.util.render.element.QuadBuilder;
+import jobicade.gooey.geom.Rect;
+import jobicade.gooey.geom.Direction;
+import jobicade.gooey.geom.Point;
+import jobicade.gooey.render.mode.GlMode;
+import jobicade.gooey.render.element.QuadBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;

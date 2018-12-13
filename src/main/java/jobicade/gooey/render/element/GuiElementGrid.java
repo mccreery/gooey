@@ -1,12 +1,12 @@
-package jobicade.util.render.element;
+package jobicade.gooey.render.element;
 
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-import jobicade.util.geom.Rect;
-import jobicade.util.geom.Direction;
-import jobicade.util.geom.Point;
+import jobicade.gooey.geom.Rect;
+import jobicade.gooey.geom.Direction;
+import jobicade.gooey.geom.Point;
 
 class GuiElementGrid extends GuiElement {
 	private final List<GuiElement> source;

@@ -1,4 +1,4 @@
-package jobicade.util.render;
+package jobicade.gooey.render;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.MathHelper;

@@ -1,12 +1,12 @@
-package jobicade.util.render.element;
+package jobicade.gooey.render.element;
 
 import java.util.function.Function;
 
 import org.apache.commons.lang3.builder.Builder;
 
-import jobicade.util.geom.Rect;
-import jobicade.util.geom.Direction;
-import jobicade.util.render.Color;
+import jobicade.gooey.geom.Rect;
+import jobicade.gooey.geom.Direction;
+import jobicade.gooey.render.Color;
 
 public class QuadBuilder implements Builder<GuiElement> {
     private double zLevel;

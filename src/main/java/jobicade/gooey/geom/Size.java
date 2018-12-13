@@ -1,4 +1,4 @@
-package jobicade.util.geom;
+package jobicade.gooey.geom;
 
 import net.minecraft.client.gui.ScaledResolution;
 

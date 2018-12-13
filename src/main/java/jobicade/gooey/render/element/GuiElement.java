@@ -1,7 +1,7 @@
-package jobicade.util.render.element;
+package jobicade.gooey.render.element;
 
-import jobicade.util.geom.Rect;
-import jobicade.util.geom.Point;
+import jobicade.gooey.geom.Rect;
+import jobicade.gooey.geom.Point;
 
 public abstract class GuiElement {
 	private final Point size;

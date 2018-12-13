@@ -1,4 +1,4 @@
-package jobicade.util.render.mode;
+package jobicade.gooey.render.mode;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

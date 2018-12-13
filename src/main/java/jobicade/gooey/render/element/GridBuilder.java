@@ -1,4 +1,4 @@
-package jobicade.util.render.element;
+package jobicade.gooey.render.element;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import com.google.common.collect.ImmutableList;
 
 import org.apache.commons.lang3.builder.Builder;
 
-import jobicade.util.geom.Direction;
-import jobicade.util.geom.Point;
+import jobicade.gooey.geom.Direction;
+import jobicade.gooey.geom.Point;
 
 public class GridBuilder<T extends GuiElement> implements Builder<GuiElement> {
     private List<T> source;

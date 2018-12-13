@@ -1,4 +1,4 @@
-package jobicade.util.geom;
+package jobicade.gooey.geom;
 
 import java.util.HashMap;
 import java.util.Map;

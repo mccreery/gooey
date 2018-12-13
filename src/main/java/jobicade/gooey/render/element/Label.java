@@ -1,8 +1,8 @@
-package jobicade.util.render.element;
+package jobicade.gooey.render.element;
 
-import jobicade.util.geom.Rect;
-import jobicade.util.geom.Point;
-import jobicade.util.render.Color;
+import jobicade.gooey.geom.Rect;
+import jobicade.gooey.geom.Point;
+import jobicade.gooey.render.Color;
 import net.minecraft.client.Minecraft;
 
 public class Label extends GuiElement {

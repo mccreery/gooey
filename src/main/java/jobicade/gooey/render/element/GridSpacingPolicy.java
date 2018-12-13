@@ -1,6 +1,6 @@
-package jobicade.util.render.element;
+package jobicade.gooey.render.element;
 
-import jobicade.util.geom.Point;
+import jobicade.gooey.geom.Point;
 
 public interface GridSpacingPolicy {
     Point getPitch(Point cellSize);

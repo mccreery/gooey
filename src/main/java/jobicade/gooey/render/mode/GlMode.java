@@ -1,11 +1,11 @@
-package jobicade.util.render.mode;
+package jobicade.gooey.render.mode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 import com.google.common.util.concurrent.Runnables;
 
-import jobicade.util.render.Color;
+import jobicade.gooey.render.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;

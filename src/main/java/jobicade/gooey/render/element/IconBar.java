@@ -1,11 +1,11 @@
-package jobicade.util.render.element;
+package jobicade.gooey.render.element;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import jobicade.util.geom.Direction;
+import jobicade.gooey.geom.Direction;
 
 public class IconBar extends GridBuilder<GuiElement> {
     private int totalHalfPoints = 0;

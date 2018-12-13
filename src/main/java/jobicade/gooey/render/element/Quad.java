@@ -1,13 +1,13 @@
-package jobicade.util.render.element;
+package jobicade.gooey.render.element;
 
 import java.util.function.Function;
 
 import org.lwjgl.opengl.GL11;
 
-import jobicade.util.geom.Rect;
-import jobicade.util.geom.Direction;
-import jobicade.util.geom.Point;
-import jobicade.util.render.Color;
+import jobicade.gooey.geom.Rect;
+import jobicade.gooey.geom.Direction;
+import jobicade.gooey.geom.Point;
+import jobicade.gooey.render.Color;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;

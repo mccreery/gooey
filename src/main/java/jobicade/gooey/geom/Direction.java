@@ -1,4 +1,4 @@
-package jobicade.util.geom;
+package jobicade.gooey.geom;
 
 /**
  * Enum representing the eight cardinal directions and the

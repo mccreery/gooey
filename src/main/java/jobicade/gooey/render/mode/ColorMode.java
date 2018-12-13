@@ -1,6 +1,6 @@
-package jobicade.util.render.mode;
+package jobicade.gooey.render.mode;
 
-import jobicade.util.render.Color;
+import jobicade.gooey.render.Color;
 
 public class ColorMode extends GlMode {
     private final Color color;
