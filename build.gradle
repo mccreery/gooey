@@ -8,10 +8,11 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
 
-version = "0.1-alpha-universal"
+version = "1.12.2-0.1-alpha"
 group = "jobicade.util" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "gooey-1.12.2"
+archivesBaseName = "gooey"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -22,6 +23,10 @@ minecraft {
     version = "1.12.2-14.23.4.2710"
     runDir = "run"
     mappings = "snapshot_20171003"
+}
+
+jar.manifest {
+    attributes 'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}"
 }
 
 processResources {
