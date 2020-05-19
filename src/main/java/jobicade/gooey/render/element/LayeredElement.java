@@ -1,8 +1,7 @@
 package jobicade.gooey.render.element;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.collect.ImmutableList;
 
 import jobicade.gooey.geom.Direction;
 import jobicade.gooey.geom.Point;
@@ -14,7 +13,7 @@ public class LayeredElement extends GuiElement {
 
     public LayeredElement(List<GuiElement> source, Direction alignment) {
         super(getMaxSize(source));
-        this.source = ImmutableList.copyOf(source);
+        this.source = new ArrayList<>(source);
         this.alignment = alignment;
     }
 

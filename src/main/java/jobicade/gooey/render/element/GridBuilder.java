@@ -1,15 +1,12 @@
 package jobicade.gooey.render.element;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.collect.ImmutableList;
-
-import org.apache.commons.lang3.builder.Builder;
 
 import jobicade.gooey.geom.Direction;
 import jobicade.gooey.geom.Point;
 
-public class GridBuilder<T extends GuiElement> implements Builder<GuiElement> {
+public class GridBuilder<T extends GuiElement> {
     private List<T> source;
     private int columns = -1;
 
@@ -80,9 +77,8 @@ public class GridBuilder<T extends GuiElement> implements Builder<GuiElement> {
         return this;
     }
 
-    @Override
     public GuiElement build() {
-        List<T> source = ImmutableList.copyOf(this.source);
+        List<T> source = new ArrayList<>(this.source);
 
         Point cellSize = getMaxCellSize();
         Point cellPitch = spacingPolicy.getPitch(cellSize);

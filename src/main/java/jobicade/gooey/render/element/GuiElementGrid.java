@@ -1,12 +1,11 @@
 package jobicade.gooey.render.element;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-
-import jobicade.gooey.geom.Rect;
 import jobicade.gooey.geom.Direction;
 import jobicade.gooey.geom.Point;
+import jobicade.gooey.geom.Rect;
 
 class GuiElementGrid extends GuiElement {
 	private final List<GuiElement> source;
@@ -21,7 +20,7 @@ class GuiElementGrid extends GuiElement {
 	GuiElementGrid(Point size, List<? extends GuiElement> source, int columns, Point cellSize, Point cellPitch,
 			Direction flowDirection, boolean transpose, Direction cellAlignment) {
 		super(size);
-		this.source = ImmutableList.copyOf(source);
+		this.source = new ArrayList<>(source);
 		this.columns = columns;
 		this.cellSize = cellSize;
 		this.cellPitch = cellPitch;
