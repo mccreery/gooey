@@ -9,13 +9,7 @@ package jobicade.gooey.geom;
 public class Size extends Point {
     private static final long serialVersionUID = 1L;
 
-    private static final Size ZERO = new Size();
-
-    /**
-     * Default constructor for sizes.
-     * @see Point#Point()
-     */
-    public Size() { super(); }
+    private static final Size ZERO = new Size(0, 0);
 
     /**
      * Constructor for sizes.

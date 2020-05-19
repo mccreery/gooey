@@ -8,39 +8,22 @@ import java.io.Serializable;
  */
 public class Point implements Serializable {
     private static final long serialVersionUID = 1L;
-    private static final Point ZERO = new Point();
+    public static final Point ZERO = new Point(0, 0);
 
     private final int x, y;
 
-    /**
-     * Default constructor for points. Both X and Y will be zero.
-     */
-    public Point() { this(0, 0); }
-
-    /**
-     * Constructor for points.
-     *
-     * @param x The X coordinate.
-     * @param y The Y coordinate.
-     */
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    /**
-     * Copy constructor for points.
-     * @param point The original point to copy.
-     */
     public Point(Point point) {
         this.x = point.x;
         this.y = point.y;
     }
 
     /**
-     * Point objects are considered equal only to other point objects
-     * with the same X and Y.
-     *
+     * Points are equal only to other Points with equal X and Y.
      * <p>{@inheritDoc}
      */
     @Override
@@ -53,9 +36,7 @@ public class Point implements Serializable {
     }
 
     /**
-     * Point objects are considered equal only to other point objects
-     * with the same X and Y.
-     *
+     * Points are equal only to other Points with equal X and Y.
      * <p>{@inheritDoc}
      */
     @Override
@@ -63,53 +44,39 @@ public class Point implements Serializable {
         return (31 + x) * 31 + y;
     }
 
-    /**
-     * Point implementation includes the values of X and Y.
-     *
-     * <p>{@inheritDoc}
-     */
     @Override
     public String toString() {
-        return String.format("%s{x: %d, y: %d}@%s",
-            getClass().getName(), x, y, Integer.toHexString(hashCode()));
+        return String.format("%s{x: %d, y: %d}",
+            getClass().getName(), x, y);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     /**
-     * Returns a point with both X and Y equal to zero. Prefer to use this over
-     * creating one, as there may be a performance benefit.
-     * @return A point with both X and Y equal to zero.
+     * Copies this Point with a new X value.
+     *
+     * @return A copy of {@code this},
+     * but with its X coordinate replaced with {@code x}.
      */
-    public static Point zero() { return ZERO; }
-
-    // Getters and setters
+    public Point withX(int x) {
+        return new Point(x, y);
+    }
 
     /**
-     * Getter for X.
-     * @return The X coordinate.
+     * Copies this Point with a new Y value.
+     *
+     * @return A copy of {@code this},
+     * but with its Y coordinate replaced with {@code y}.
      */
-    public int getX() { return x; }
-
-    /**
-     * Getter for Y.
-     * @return The Y coordinate.
-     */
-    public int getY() { return y; }
-
-    /**
-     * Returns a point with the given X coordinate and the original Y coordinate.
-     * @param x The new X coordinate.
-     * @return A point with the given X coordinate and the original Y coordinate.
-     */
-    public Point withX(int x) { return new Point(x, y); }
-
-    /**
-     * Returns a point with the given Y coordinate and the original X coordinate.
-     * @param y The new Y coordinate.
-     * @return A point with the given Y coordinate and the original X coordinate.
-     */
-    public Point withY(int y) { return new Point(x, y); }
-
-    // End getters and setters
+    public Point withY(int y) {
+        return new Point(x, y);
+    }
 
     /**
      * Returns the sum of this point and another point.

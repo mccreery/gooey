@@ -55,7 +55,7 @@ public final class Rect implements Serializable {
      * @see #Rect(Point, Size)
      */
     public Rect(Point size) {
-        this(Point.zero(), size);
+        this(Point.ZERO, size);
     }
 
     /**
@@ -619,7 +619,7 @@ public final class Rect implements Serializable {
      * @return The result of aligning the anchor direction to the anchor point.
      */
     public Rect align(Point anchor, Direction alignment) {
-        return move(anchor.sub(move(Point.zero()).getAnchor(alignment)));
+        return move(anchor.sub(move(Point.ZERO).getAnchor(alignment)));
     }
 
     /**
