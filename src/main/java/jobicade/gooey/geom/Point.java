@@ -79,16 +79,32 @@ public class Point implements Serializable {
     }
 
     /**
-     * @return The component-wise sum of {@code this} and {@code point}.
+     * @return The sum of {@code this} and {@code point}.
      */
     public Point add(Point point) {
         return new Point(x + point.x, y + point.y);
     }
 
     /**
-     * @return The component-wise difference between {@code this} and {@code point}.
+     * @return The sum of {@code this} and the point made of components
+     * {@code x} and {@code y}.
+     */
+    public Point add(int x, int y) {
+        return new Point(this.x + x, this.y + y);
+    }
+
+    /**
+     * @return The result of {@code this} subtracted by {@code point}.
      */
     public Point sub(Point point) {
         return new Point(x - point.x, y - point.y);
+    }
+
+    /**
+     * @return The result of {@code this} subtracted by the point made of
+     * components {@code x} and {@code y}.
+     */
+    public Point sub(int x, int y) {
+        return new Point(this.x - x, this.y - y);
     }
 }
