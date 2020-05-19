@@ -1,10 +1,8 @@
 package jobicade.gooey.geom;
 
-import net.minecraft.client.gui.ScaledResolution;
-
 /**
- * A special type of point that represents a difference
- * or size between two points, for example the size of a rectangle.
+ * A special type of point that represents a difference or size between two
+ * points, for example the size of a rectangle.
  *
  * @see Rect
  */
@@ -38,16 +36,6 @@ public class Size extends Point {
      */
     public Size(Point point) {
         super(point);
-    }
-
-    /**
-     * Conversion constructor for sizes.
-     *
-     * @param resolution The resolution to convert.
-     * @see Point#Point(ScaledResolution)
-     */
-    public Size(ScaledResolution resolution) {
-        super(resolution);
     }
 
     /**
