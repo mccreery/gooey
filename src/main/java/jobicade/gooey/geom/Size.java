@@ -86,8 +86,8 @@ public class Size extends Point {
      * @return A size with a new width and the existing height.
      * @see #withX(int)
      */
-    public Point withWidth(int width) {
-        return withX(width);
+    public Size withWidth(int width) {
+        return new Size(width, getHeight());
     }
 
     /**
@@ -97,7 +97,7 @@ public class Size extends Point {
      * @return A size with a new height and the existing width.
      * @see #withY(int)
      */
-    public Point withHeight(int height) {
-        return withY(height);
+    public Size withHeight(int height) {
+        return new Size(getWidth(), height);
     }
 }
