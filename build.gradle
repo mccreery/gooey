@@ -1,6 +1,5 @@
 plugins {
     id 'java-library'
-    id 'maven'
 }
 
 java {
@@ -17,7 +16,3 @@ javadoc {
 version = "0.2"
 group = "jobicade.gooey"
 archivesBaseName = "gooey"
-
-jar.manifest {
-    attributes 'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}"
-}
