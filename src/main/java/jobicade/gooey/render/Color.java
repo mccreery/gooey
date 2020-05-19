@@ -1,68 +1,85 @@
 package jobicade.gooey.render;
 
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.math.MathHelper;
+import jobicade.gooey.Lerp;
 
-public class Color {
-	public static final Color WHITE = new Color(255, 255, 255);
-	public static final Color GRAY = new Color(127, 127, 127);
-	public static final Color BLACK = new Color(0, 0, 0);
+public final class Color {
+	public static final Color WHITE = fromRgb(255, 255, 255);
+	public static final Color GRAY = fromRgb(127, 127, 127);
+	public static final Color BLACK = fromRgb(0, 0, 0);
 
-	public static final Color RED = new Color(255, 0, 0);
-	public static final Color GREEN = new Color(0, 255, 0);
-	public static final Color BLUE = new Color(0, 0, 255);
+	public static final Color RED = fromRgb(255, 0, 0);
+	public static final Color GREEN = fromRgb(0, 255, 0);
+	public static final Color BLUE = fromRgb(0, 0, 255);
 
-	private final int alpha, red, green, blue;
-	private final int packed;
+	private final byte red, green, blue, alpha;
 
-	public Color(int red, int green, int blue) {
-		this(0xff, red, green, blue);
+	private Color(int red, int green, int blue, int alpha) {
+		this.alpha = (byte)Lerp.clamp(alpha, 0, 255);
+		this.red = (byte)Lerp.clamp(red, 0, 255);
+		this.green = (byte)Lerp.clamp(green, 0, 255);
+		this.blue = (byte)Lerp.clamp(blue, 0, 255);
 	}
 
-	public Color(int alpha, int red, int green, int blue) {
-		this.alpha = alpha & 0xff;
-		this.red = red & 0xff;
-		this.green = green & 0xff;
-		this.blue = blue & 0xff;
-		this.packed = (this.alpha << 24) | (this.red << 16) | (this.green << 8) | this.blue;
+	public static Color fromRgb(int red, int green, int blue) {
+		return new Color(red, green, blue, 255);
 	}
 
-	public Color(int packed) {
-		this.alpha = packed >> 24;
-		this.red = (packed >> 16) & 0xff;
-		this.green = (packed >> 8) & 0xff;
-		this.blue = packed & 0xff;
-		this.packed = packed;
+	public static Color fromRgba(int red, int green, int blue, int alpha) {
+		return new Color(red, green, blue, alpha);
 	}
 
-	public int getPacked() {
-		return packed;
+	public static final Color fromArgb(int alpha, int red, int green, int blue) {
+		return new Color(red, green, blue, alpha);
 	}
 
-	public int getAlpha() {return alpha;}
-	public int getRed() {return red;}
-	public int getGreen() {return green;}
-	public int getBlue() {return blue;}
+	public int getRed() { return red; }
+	public int getGreen() { return green; }
+	public int getBlue() { return blue; }
+	public int getAlpha() { return alpha; }
 
-	public Color withAlpha(int alpha) {return new Color(alpha, red, green, blue);}
-	public Color withRed(int red) {return new Color(alpha, red, green, blue);}
-	public Color withGreen(int green) {return new Color(alpha, red, green, blue);}
-	public Color withBlue(int blue) {return new Color(alpha, red, green, blue);}
+	public Color withRed(int red) { return new Color(red, green, blue, alpha); }
+	public Color withGreen(int green) { return new Color(red, green, blue, alpha); }
+	public Color withBlue(int blue) { return new Color(red, green, blue, alpha); }
+	public Color withAlpha(int alpha) { return new Color(red, green, blue, alpha); }
 
-	public void apply() {
-		GlStateManager.color(alpha, red, green, blue);
+	public int packRgb() {
+		return (red << 16) | (green << 8) | blue;
 	}
 
-	public static Color fromHSV(float hue, float saturation, float value) {
-		hue -= MathHelper.floor(hue);
-		saturation = MathHelper.clamp(saturation, 0, 1);
-		value = MathHelper.clamp(value, 0, 1);
-
-		return new Color(MathHelper.hsvToRGB(hue, saturation, value)).withAlpha(255);
+	public int packRgba() {
+		return (red << 24) | (green << 16) | (blue << 8) | alpha;
 	}
 
-	public static Color getProgressColor(float progress) {
-		progress = MathHelper.clamp(progress, 0, 1);
-		return Color.fromHSV(progress / 3f, 1, 1);
+	public int packArgb() {
+		return (alpha << 24) | (red << 16) | (green << 8) | blue;
+	}
+
+	private static Color fromRgbF(float red, float green, float blue) {
+		return new Color(Math.round(red * 255.0f), Math.round(green * 255.0f), Math.round(blue * 255.0f), 255);
+	}
+
+	public static Color fromHsv(float hue, float saturation, float value) {
+		hue = Lerp.floorMod(hue, 360.0f);
+		saturation = Lerp.clamp(saturation);
+		value = Lerp.clamp(value);
+
+		// floorMod does not need to be used where both num and denom positive
+		float t = (hue / 60.0f) % 1.0f;
+		float low = value * (1 - saturation);
+
+		// Each 60 degree arc is handled separately
+		if (hue < 60.0f) {
+			return fromRgbF(value, Lerp.lerp(low, value, t), low);
+		} else if (hue < 120.0f) {
+			return fromRgbF(Lerp.lerp(value, low, t), value, low);
+		} else if (hue < 180.0f) {
+			return fromRgbF(low, value, Lerp.lerp(low, value, t));
+		} else if (hue < 240.0f) {
+			return fromRgbF(low, Lerp.lerp(value, low, t), value);
+		} else if (hue < 300.0f) {
+			return fromRgbF(Lerp.lerp(low, value, t), low, value);
+		} else {
+			return fromRgbF(value, low, Lerp.lerp(value, low, t));
+		}
 	}
 }
