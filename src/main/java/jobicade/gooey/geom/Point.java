@@ -79,94 +79,16 @@ public class Point implements Serializable {
     }
 
     /**
-     * Returns the sum of this point and another point.
-     * @param x The X coordinate of the other point.
-     * @param y The Y coordinate of the other point.
-     * @return The sum of this point and the other point.
+     * @return The component-wise sum of {@code this} and {@code point}.
      */
-    public Point add(int x, int y) { return new Point(this.x + x, this.y + y); }
-
-    /**
-     * @param point The other point.
-     * @return The result of moving this point in the given direction
-     * @see #add(int, int)
-     */
-    public Point add(Point point) { return new Point(x + point.x, y + point.y); }
-
-    /**
-     * Returns the result of moving a point in a direction by a distance.
-     * @param direction The direction of movement.
-     * @param x The distance to move.
-     * @return The result of moving this point in the given direction
-     * by the given distance.
-     */
-    public Point add(Direction direction, int x) { return add(direction.getUnit().scale(x, x)); }
-
-    /**
-     * Returns the difference between this point and another point.
-     * @param x The X coordinate of the other point.
-     * @param y The Y coordinate of the other point.
-     * @return The difference between this point and the other point.
-     */
-    public Size sub(int x, int y) { return new Size(this.x - x, this.y - y); }
-
-    /**
-     * @param point The other point
-     * @return The difference between this point and the other point.
-     * @see #sub(int, int)
-     */
-    public Size sub(Point point) { return new Size(x - point.x, y - point.y); }
-
-    /**
-     * Returns a point with both X and Y negated.
-     * @return A point with both X and Y negated.
-     */
-    public Point invert() { return new Point(-x, -y); }
-
-    /**
-     * Scales the point by a factor in X and Y.
-     * @param xf The factor in the X axis.
-     * @param yf The factor in the Y axis.
-     * @return A point scaled by the given factors.
-     */
-    public Point scale(float xf, float yf) {
-        return new Point(Math.round(x * xf), Math.round(y * yf));
+    public Point add(Point point) {
+        return new Point(x + point.x, y + point.y);
     }
 
     /**
-     * Scales the point by a factor in X and Y.
-     *
-     * @param factor The scaling factor.
-     * @return A point scaled by the given factor.
+     * @return The component-wise difference between {@code this} and {@code point}.
      */
-    public Point scale(Point factor) {
-        return new Point(x * factor.x, y * factor.y);
-    }
-
-    /**
-     * Scales the point by a factor in X and Y around a point.
-     *
-     * @param xf The factor in the X axis.
-     * @param yf The factor in the Y axis.
-     * @param x The point to scale around X coordinate.
-     * @param y The point to scale around Y coordinate.
-     * @return A point scaled by the given factors around the given point.
-     * @see #scale(float, float)
-     */
-    public Point scale(float xf, float yf, int x, int y) {
-        return new Point(
-            Math.round((this.x - x) * xf + x),
-            Math.round((this.y - y) * yf + y));
-    }
-
-    /**
-     * @param xf The factor in the X axis.
-     * @param yf The factor in the Y axis.
-     * @param point The point.
-     * @return A point scaled by the given factors around the given point.
-     * @see #scale(float, float, int, int)
-     */
-    public Point scale(float xf, float yf, Point point) {
-        return scale(xf, yf, point.x, point.y);
+    public Point sub(Point point) {
+        return new Point(x - point.x, y - point.y);
     }
 }
