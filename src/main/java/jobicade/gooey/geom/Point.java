@@ -102,4 +102,11 @@ public class Point implements Serializable {
     public Point sub(int x, int y) {
         return new Point(this.x - x, this.y - y);
     }
+
+    /**
+     * Scales each coordinate of this point.
+     */
+    public Point scale(float sx, float sy) {
+        return new Point(Math.round(x * sx), Math.round(y * sy));
+    }
 }
