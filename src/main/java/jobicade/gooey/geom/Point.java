@@ -17,11 +17,6 @@ public class Point implements Serializable {
         this.y = y;
     }
 
-    public Point(Point point) {
-        this.x = point.x;
-        this.y = point.y;
-    }
-
     /**
      * Points are equal only to other Points with equal X and Y.
      * <p>{@inheritDoc}
