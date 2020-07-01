@@ -1,6 +1,6 @@
 package jobicade.gooey.render;
 
-import jobicade.gooey.Lerp;
+import jobicade.gooey.GooeyMath;
 
 public final class Color {
 	public static final Color WHITE = fromRgb(255, 255, 255);
@@ -14,10 +14,10 @@ public final class Color {
 	private final byte red, green, blue, alpha;
 
 	private Color(int red, int green, int blue, int alpha) {
-		this.alpha = (byte)Lerp.clamp(alpha, 0, 255);
-		this.red = (byte)Lerp.clamp(red, 0, 255);
-		this.green = (byte)Lerp.clamp(green, 0, 255);
-		this.blue = (byte)Lerp.clamp(blue, 0, 255);
+		this.alpha = (byte)GooeyMath.clamp(alpha, 0, 255);
+		this.red = (byte)GooeyMath.clamp(red, 0, 255);
+		this.green = (byte)GooeyMath.clamp(green, 0, 255);
+		this.blue = (byte)GooeyMath.clamp(blue, 0, 255);
 	}
 
 	public static Color fromRgb(int red, int green, int blue) {
@@ -59,9 +59,9 @@ public final class Color {
 	}
 
 	public static Color fromHsv(float hue, float saturation, float value) {
-		hue = Lerp.floorMod(hue, 360.0f);
-		saturation = Lerp.clamp(saturation);
-		value = Lerp.clamp(value);
+		hue = GooeyMath.floorMod(hue, 360.0f);
+		saturation = GooeyMath.clamp(saturation);
+		value = GooeyMath.clamp(value);
 
 		// floorMod does not need to be used where both num and denom positive
 		float t = (hue / 60.0f) % 1.0f;
@@ -69,17 +69,17 @@ public final class Color {
 
 		// Each 60 degree arc is handled separately
 		if (hue < 60.0f) {
-			return fromRgbF(value, Lerp.lerp(low, value, t), low);
+			return fromRgbF(value, GooeyMath.lerp(low, value, t), low);
 		} else if (hue < 120.0f) {
-			return fromRgbF(Lerp.lerp(value, low, t), value, low);
+			return fromRgbF(GooeyMath.lerp(value, low, t), value, low);
 		} else if (hue < 180.0f) {
-			return fromRgbF(low, value, Lerp.lerp(low, value, t));
+			return fromRgbF(low, value, GooeyMath.lerp(low, value, t));
 		} else if (hue < 240.0f) {
-			return fromRgbF(low, Lerp.lerp(value, low, t), value);
+			return fromRgbF(low, GooeyMath.lerp(value, low, t), value);
 		} else if (hue < 300.0f) {
-			return fromRgbF(Lerp.lerp(low, value, t), low, value);
+			return fromRgbF(GooeyMath.lerp(low, value, t), low, value);
 		} else {
-			return fromRgbF(value, low, Lerp.lerp(value, low, t));
+			return fromRgbF(value, low, GooeyMath.lerp(value, low, t));
 		}
 	}
 }
