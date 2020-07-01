@@ -2,6 +2,10 @@ plugins {
     id 'java-library'
 }
 
+repositories {
+    mavenCentral()
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -11,6 +15,10 @@ javadoc {
     destinationDir = file("docs")
     // Removes commit noise from <!-- timestamp --> header in generated html
     options.addBooleanOption('notimestamp', true)
+}
+
+dependencies {
+    api 'com.google.guava:guava:29.0-jre'
 }
 
 version = "0.2"
