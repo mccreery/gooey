@@ -384,4 +384,32 @@ public final class Rect implements Serializable {
     }
 
     // endregion
+
+    /**
+     * Moves a Rect such that an interpolated point inside it is aligned with
+     * the anchor point.
+     *
+     * @param tx The X interpolation parameter.
+     * @param ty The Y interpolation parameter.
+     * @return The moved copy of {@code rect}.
+     * @see Rect#interpolate(float, float)
+     */
+    public Rect alignAround(Point anchor, float tx, float ty) {
+        Point toAlign = getSize().scale(tx, ty);
+        return withPosition(anchor.sub(toAlign));
+    }
+
+    /**
+     * Moves a Rect such that the corresponding interpolated points inside
+     * {@code rect} and {@code container} are aligned.
+     *
+     * @param tx The X interpolation parameter.
+     * @param ty The Y interpolation parameter.
+     * @return The moved copy of {@code rect}.
+     * @see Rect#interpolate(float, float)
+     */
+    public Rect alignInside(Rect container, float tx, float ty) {
+        Point anchor = container.interpolate(tx, ty);
+        return alignAround(anchor, tx, ty);
+    }
 }
