@@ -2,7 +2,7 @@ package jobicade.gooey.geom;
 
 import java.io.Serializable;
 
-import jobicade.gooey.Lerp;
+import jobicade.gooey.GooeyMath;
 
 /*
  * This class is very long. If your editor supports // region comments, you
@@ -331,8 +331,8 @@ public final class Rect implements Serializable {
      */
     public Point interpolate(float tx, float ty) {
         return new Point(
-            Lerp.lerp(x, x + width, tx),
-            Lerp.lerp(y, y + height, ty)
+            GooeyMath.lerp(x, x + width, tx),
+            GooeyMath.lerp(y, y + height, ty)
         );
     }
 
