@@ -75,5 +75,7 @@ public abstract class Layout {
      * @return A valid size that should be used for this layout given no further
      * constraints.
      */
-    public abstract Point getSizeHint();
+    public Point getSizeHint() {
+        return requestSize(Point.ZERO);
+    }
 }
