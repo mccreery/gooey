@@ -46,12 +46,18 @@ public abstract class Layout {
      * @throws IllegalArgumentException If {@code bounds} has an invalid size.
      * @see #checkSize(Point)
      */
-    public final void setBounds(Rect bounds) {
+    protected final void setBounds(Rect bounds) {
         if (!checkSize(bounds.getSize())) {
             throw new IllegalArgumentException("Invalid size");
         }
         this.bounds = bounds;
     }
+
+    /**
+     * Applies the layout, setting the bounds for this layout and its children.
+     * @see #setBounds(Rect)
+     */
+    public abstract void apply(Rect requestedBounds);
 
     /**
      * @return {@code true} if {@code size} is valid for this layout.

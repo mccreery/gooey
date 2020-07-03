@@ -4,6 +4,7 @@ import com.google.common.collect.Range;
 
 import jobicade.gooey.GooeyMath;
 import jobicade.gooey.geom.Point;
+import jobicade.gooey.geom.Rect;
 
 // package-private
 final class StaticLayout extends Layout {
@@ -28,6 +29,11 @@ final class StaticLayout extends Layout {
         } else if (!checkSize(sizeHint)) {
             throw new IllegalArgumentException("Size hint out of range");
         }
+    }
+
+    @Override
+    public void apply(Rect requestedBounds) {
+        setBounds(requestedBounds);
     }
 
     @Override
