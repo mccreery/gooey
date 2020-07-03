@@ -17,26 +17,26 @@ public abstract class Layout {
     /**
      * @return A new static layout accepting a fixed size.
      */
-    public static Layout fixedSize(Point size) {
+    public static final Layout fixedSize(Point size) {
         return new StaticLayout(size, Range.singleton(size.getX()), Range.singleton(size.getY()));
     }
 
     /**
      * @return A new static layout accepting any size with a size hint.
      */
-    public static Layout anySize(Point sizeHint) {
+    public static final Layout anySize(Point sizeHint) {
         return new StaticLayout(sizeHint, Range.atLeast(0), Range.atLeast(0));
     }
 
     /**
      * @return A new static layout accepting sizes within range and with a size hint.
      */
-    public static Layout sizeRange(Point sizeHint, Range<Integer> widthRange, Range<Integer> heightRange) {
+    public static final Layout sizeRange(Point sizeHint, Range<Integer> widthRange, Range<Integer> heightRange) {
         return new StaticLayout(sizeHint, widthRange, heightRange);
     }
 
     private Rect bounds;
-    public Rect getBounds() {
+    public final Rect getBounds() {
         return bounds;
     }
 
@@ -46,7 +46,7 @@ public abstract class Layout {
      * @throws IllegalArgumentException If {@code bounds} has an invalid size.
      * @see #checkSize(Point)
      */
-    public void setBounds(Rect bounds) {
+    public final void setBounds(Rect bounds) {
         if (!checkSize(bounds.getSize())) {
             throw new IllegalArgumentException("Invalid size");
         }
