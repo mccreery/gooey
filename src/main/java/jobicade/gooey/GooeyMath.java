@@ -18,6 +18,10 @@ public final class GooeyMath {
         return (float)(x - Math.floor(x / y) * y);
     }
 
+    public static int ceilDiv(int a, int b) {
+        return (a + b - 1) / b;
+    }
+
     public static int clamp(int x, int min, int max) {
         if (x < min) {
             return min;

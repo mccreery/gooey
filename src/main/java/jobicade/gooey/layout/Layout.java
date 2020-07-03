@@ -82,6 +82,10 @@ public abstract class Layout {
      * constraints.
      */
     public Point getSizeHint() {
+        return getMinSize();
+    }
+
+    public final Point getMinSize() {
         return requestSize(Point.ZERO);
     }
 }

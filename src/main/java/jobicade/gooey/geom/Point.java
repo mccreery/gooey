@@ -109,4 +109,22 @@ public class Point implements Serializable {
     public Point scale(float sx, float sy) {
         return new Point(Math.round(x * sx), Math.round(y * sy));
     }
+
+    public Point scale(Point scaleFactor) {
+        return scale(scaleFactor.x, scaleFactor.y);
+    }
+
+    /**
+     * @return A point with the min value between the two points on each axis.
+     */
+    public static Point biMin(Point a, Point b) {
+        return new Point(Math.min(a.x, b.x), Math.min(a.y, b.y));
+    }
+
+    /**
+     * @return A point with the max value between the two points on each axis.
+     */
+    public static Point biMax(Point a, Point b) {
+        return new Point(Math.max(a.x, b.x), Math.max(a.y, b.y));
+    }
 }
